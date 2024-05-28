@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
 
+import './home.dart';
+
 void main() {
-  runApp(const MyApp());
+  runApp(const MaterialApp(
+    title: 'Navigation Basics',
+    home: MyApp(),
+  ));
 }
 
 class MyApp extends StatefulWidget {
@@ -18,14 +23,13 @@ class _MyAppState extends State<MyApp> {
       home: Scaffold(
         appBar: AppBar(
           title: const Text('Travel App',
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 20.0,
-            fontWeight: FontWeight.bold,
-          )),
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 20.0,
+                fontWeight: FontWeight.bold,
+              )),
           backgroundColor: Colors.blue,
           centerTitle: true,
-          
         ),
         body: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -61,7 +65,6 @@ class _MyAppState extends State<MyApp> {
                   SizedBox(
                     height: 15,
                   ),
-
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 15),
                     child: TextFormField(
@@ -81,13 +84,22 @@ class _MyAppState extends State<MyApp> {
                   SizedBox(
                     height: 15,
                   ),
-
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 35),
                     child: MaterialButton(
                       minWidth: double.infinity,
-                      onPressed: () {},
-                      child: Text('Login'),
+                      onPressed: () {
+                        Navigator.pushAndRemoveUntil(
+                          context,
+                          MaterialPageRoute(
+                            builder: (BuildContext context) {
+                              return Home();
+                            },
+                          ),
+                          (route) => false,
+                        );
+                      },
+                      child: const Text('Login'),
                       color: Colors.blue,
                       textColor: Colors.white,
                     ),
