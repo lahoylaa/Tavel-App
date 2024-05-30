@@ -1,7 +1,10 @@
+import 'package:cis350_travel_app/server.dart';
 import 'package:flutter/material.dart';
+import 'location.dart';
+import 'server.dart';
 
 class Home extends StatefulWidget {
-  const Home({Key? key}) : super(key: key);
+  const Home({super.key});
 
   @override
   _myHomeState createState() => _myHomeState();
@@ -34,6 +37,8 @@ class _myHomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
+    final myLocationController = TextEditingController();
+
     return Scaffold(
         appBar: AppBar(
           title: const Text('Travel App',
@@ -44,17 +49,6 @@ class _myHomeState extends State<Home> {
               )),
           backgroundColor: Colors.blue,
           centerTitle: true,
-
-          // actions: <Widget>[
-          //   IconButton(
-          //     icon: Icon(Icons.menu),
-          //     color: Colors.white,
-          //     onPressed: (){
-          //       // Do something
-          //       Scaffold.of(context).openDrawer();
-          //     }
-          //   )
-          // ]
           leading: Builder(
             builder: (context) {
               return IconButton(
@@ -97,7 +91,7 @@ class _myHomeState extends State<Home> {
           ],
         )),
         body: Container(
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
               image: DecorationImage(
             image: AssetImage("assets/testpic1.jpg"),
             fit: BoxFit.cover,
@@ -107,13 +101,37 @@ class _myHomeState extends State<Home> {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 5),
                 child: TextFormField(
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     hintText: 'Explore',
                     border: OutlineInputBorder(),
                     prefixIcon: Icon(Icons.search),
                     filled: true,
                     fillColor: Colors.white,
                   ),
+                  onFieldSubmitted: (value) async {
+                    final locationEntry = await MongoDatabase.getLocation(value);
+                    if (locationEntry != null) {
+                      Navigator.pushAndRemoveUntil(
+                        context,
+                        MaterialPageRoute(
+                          builder: (BuildContext context) {
+                            return Location(parameter: value);
+                          },
+                        ),
+                        (route) => false,
+                      );
+                    } else {
+                      showDialog(
+                          context: context,
+                          builder: (context) {
+                            return const AlertDialog(
+                                content: Text(
+                              'Location Does Not Exist',
+                              textAlign: TextAlign.center,
+                            ));
+                          });
+                    }
+                  },
                 ),
               )
             ],

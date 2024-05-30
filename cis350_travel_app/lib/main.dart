@@ -1,8 +1,10 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'home.dart';
+import 'signup.dart';
+import 'server.dart';
 
-import './home.dart';
-
-void main() {
+void main() async {
   runApp(const MaterialApp(
     title: 'Navigation Basics',
     home: MyApp(),
@@ -10,7 +12,7 @@ void main() {
 }
 
 class MyApp extends StatefulWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({super.key});
 
   @override
   _MyAppState createState() => _MyAppState();
@@ -19,6 +21,16 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
+    final myEmailController = TextEditingController();
+    final myPasswordController = TextEditingController();
+
+    @override
+    void dispose() {
+      myEmailController.dispose();
+      myPasswordController.dispose();
+      super.dispose();
+    }
+
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
@@ -35,7 +47,7 @@ class _MyAppState extends State<MyApp> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Text(
+              const Text(
                 'Login',
                 style: TextStyle(
                     fontSize: 35,
@@ -50,7 +62,8 @@ class _MyAppState extends State<MyApp> {
                     padding: const EdgeInsets.symmetric(horizontal: 15),
                     child: TextFormField(
                       keyboardType: TextInputType.emailAddress,
-                      decoration: InputDecoration(
+                      controller: myEmailController,
+                      decoration: const InputDecoration(
                         labelText: 'Email',
                         hintText: 'Enter email',
                         prefixIcon: Icon(Icons.email),
@@ -62,14 +75,17 @@ class _MyAppState extends State<MyApp> {
                       },
                     ),
                   ),
-                  SizedBox(
+
+                  const SizedBox(
                     height: 15,
                   ),
+
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 15),
                     child: TextFormField(
                       keyboardType: TextInputType.visiblePassword,
-                      decoration: InputDecoration(
+                      controller: myPasswordController,
+                      decoration: const InputDecoration(
                         labelText: 'Password',
                         hintText: 'Enter password',
                         prefixIcon: Icon(Icons.password),
@@ -81,29 +97,92 @@ class _MyAppState extends State<MyApp> {
                       },
                     ),
                   ),
-                  SizedBox(
+
+                  const SizedBox(
                     height: 15,
                   ),
+
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 35),
                     child: MaterialButton(
                       minWidth: double.infinity,
-                      onPressed: () {
-                        Navigator.pushAndRemoveUntil(
-                          context,
-                          MaterialPageRoute(
-                            builder: (BuildContext context) {
-                              return Home();
-                            },
-                          ),
-                          (route) => false,
-                        );
+                      onPressed: () async {
+                        // /* Test code */
+                        final userAuthentication =
+                            await MongoDatabase.getUserAuthentication(
+                                myEmailController.text);
+
+                        if (userAuthentication != null) {
+                          // compare user entry
+                          if ((myEmailController.text ==
+                                  userAuthentication["email"]) &&
+                              (myPasswordController.text ==
+                                  userAuthentication["password"])) {
+                            // Add code here
+                            Navigator.pushAndRemoveUntil(
+                              context,
+                              MaterialPageRoute(
+                                builder: (BuildContext context) {
+                                  return Home();
+                                },
+                              ),
+                              (route) => false,
+                            );
+                          } else {
+                            /* Output when a invalid entry is made */
+                            showDialog(
+                                context: context,
+                                builder: (context) {
+                                  return const AlertDialog(
+                                      content: Text(
+                                    'Invalid email or password',
+                                    textAlign: TextAlign.center,
+                                  ));
+                                });
+                          }
+                        }
                       },
-                      child: const Text('Login'),
                       color: Colors.blue,
                       textColor: Colors.white,
+                      child: const Text('Login'),
                     ),
-                  )
+                  ),
+
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 35),
+                    child: GestureDetector(
+                        onTap: () {
+                          // Add code here
+                          Navigator.pushAndRemoveUntil(
+                            context,
+                            MaterialPageRoute(
+                              builder: (BuildContext context) {
+                                return Signup();
+                              },
+                            ),
+                            (route) => false,
+                          );
+                        },
+                        child: Text('Create an account')),
+                  ),
+
+                  /* Debuggin Server */
+                  // Padding(
+                  //   padding: const EdgeInsets.all(10),
+                  //   child: MaterialButton(
+                  //     minWidth: double.infinity,
+                  //     onPressed: (){
+                  //       /* Test code */
+                  //       //MongoDatabase.connect();
+                  //       MongoDatabase.sendData();
+                  //      // MongoDatabase.close();
+                  //     },
+
+                  //     color: Colors.red,
+                  //     textColor: Colors.black,
+                  //     child: const Text('Press This'),
+                  //   )
+                  // ),
                 ])),
               ),
             ]),
