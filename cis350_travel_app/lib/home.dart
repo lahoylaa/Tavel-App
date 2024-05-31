@@ -1,8 +1,8 @@
 import 'package:cis350_travel_app/server.dart';
 import 'package:flutter/material.dart';
 import 'location.dart';
-import 'server.dart';
 
+/* Class to create home page of application */
 class Home extends StatefulWidget {
   const Home({super.key});
 
@@ -10,10 +10,12 @@ class Home extends StatefulWidget {
   _myHomeState createState() => _myHomeState();
 }
 
+/* Subclas to create functionality of  the home page */
 class _myHomeState extends State<Home> {
+
+  /* Variables for tab bar */
   int selectedIndex = 0;
-  static const TextStyle optionStyle =
-      TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
+  static const TextStyle optionStyle = TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   static const List<Widget> widgetOptions = <Widget>[
     Text(
       'Index 0: Home',
@@ -37,9 +39,12 @@ class _myHomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
+    /* Variable for search bar user input*/
     final myLocationController = TextEditingController();
 
+    /* Output of the class to the application */
     return Scaffold(
+      /* Appbar UI */
         appBar: AppBar(
           title: const Text('Travel App',
               style: TextStyle(
@@ -60,6 +65,9 @@ class _myHomeState extends State<Home> {
             },
           ),
         ),
+
+        /* Tab UI */
+        /* FIX: Not finished */
         drawer: Drawer(
             child: ListView(
           padding: EdgeInsets.zero,
@@ -90,12 +98,17 @@ class _myHomeState extends State<Home> {
                 })
           ],
         )),
+
+        /* Home UI */
         body: Container(
+          /* Background Image */
           decoration: const BoxDecoration(
               image: DecorationImage(
             image: AssetImage("assets/testpic1.jpg"),
             fit: BoxFit.cover,
           )),
+
+          /* Search bar */
           child: Column(
             children: [
               Padding(
@@ -108,9 +121,15 @@ class _myHomeState extends State<Home> {
                     filled: true,
                     fillColor: Colors.white,
                   ),
+
+                  /* Userinput authentication in database */
                   onFieldSubmitted: (value) async {
                     final locationEntry = await MongoDatabase.getLocation(value);
+
+                    /*  Error Checking: Database does not have location */
                     if (locationEntry != null) {
+
+                      /* Route to location page */
                       Navigator.pushAndRemoveUntil(
                         context,
                         MaterialPageRoute(
@@ -120,7 +139,8 @@ class _myHomeState extends State<Home> {
                         ),
                         (route) => false,
                       );
-                    } else {
+                    } 
+                    else {
                       showDialog(
                           context: context,
                           builder: (context) {

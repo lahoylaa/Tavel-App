@@ -1,14 +1,38 @@
-import 'dart:developer';
 import 'package:mongo_dart/mongo_dart.dart';
 
-/* create the database*/
-/* ADD: Fuction for database authentication */
-
+/* Class to store databse functions */
 class MongoDatabase {
-  static Db db = Db('');
+  /* Databse URI */
+  static String database = 
+  'mongodb+srv://imbabyfat:CIS350_Travel_App@travelapp.kqkinpi.mongodb.net/TravelApp?retryWrites=true&w=majority';
+
+/* Retrieves the location information based on user input */
+  static Future<List<Map<String, dynamic>>?> getLocation(String location) async {
+    final db = await Db.create(database);
+    final collection = db.collection(location);
+    await db.open();
+    final userData = await collection.find().toList();
+    await db.close();
+
+    return userData;
+  }
+
+  /* Retreive user information from database */
+  static Future<Map<String, dynamic>?> getUserAuthentication(String email) async {
+    final db = await Db.create(database);
+    final collection = db.collection('Login');
+    await db.open();
+    final userData = await collection.findOne(where.eq('email', email));
+    await db.close();
+
+    return userData;
+  }
+}
+
 /* Establish the server connection */
 //final Db db = Db('mongodb+srv://imbabyfat:CIS350_Travel_App@cluster0.popkvuf.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0');
 
+/* NOTE: This are early implementations of the database functions
   static Future<void> connect() async {
     db = await Db.create(
         'mongodb+srv://imbabyfat:CIS350_Travel_App@travelapp.kqkinpi.mongodb.net/TravelApp?retryWrites=true&w=majority');
@@ -36,17 +60,9 @@ class MongoDatabase {
       Map<String, dynamic> document, String collection) async {
     final collectionData = db.collection(collection);
 
-    // /* example debug info */
-    // final documentToInsert = {
-    //   "_id": ObjectId(),
-    //   "name": "John Doe",
-    //   "email": "john@example.com",
-    //   "password": "JohnDoe123",
-    // };
-
     MongoDatabase.connect();
 
-      await collectionData.insert(document);
+    await collectionData.insert(document);
 
     MongoDatabase.close();
   }
@@ -64,30 +80,20 @@ class MongoDatabase {
     return userData;
   }
 
-static Future<List<Map<String, dynamic>>?> getLocation(String location) async {
-  try {
-    final collection = db.collection(location);
+  static Future<List<Map<String, dynamic>>?> getLocation(
+      String location) async {
+    try {
+      final collection = db.collection(location);
 
-    await MongoDatabase.connect();
+      await MongoDatabase.connect();
 
-    final userData = await collection.find().toList();
-    await MongoDatabase.close();
+      final userData = await collection.find().toList();
+      await MongoDatabase.close();
 
-    return userData;
-  } catch (e) {
-    return null;
+      return userData;
+    } catch (e) {
+      log(e.toString() + " Fuck this shit man ");
+      return null;
+    }
   }
-}
-
-
-/* Retreive documentation from database */
-// final query = where.eq('name', 'John Doe');
-// final result = awat collection.findOne(query);
-
-// if(result != null){
-//   print('Found document: $result');
-// }
-// else{
-//   print('Document not found');
-// }
-}
+*/

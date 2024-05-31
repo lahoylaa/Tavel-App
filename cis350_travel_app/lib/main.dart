@@ -1,9 +1,11 @@
-import 'package:flutter/gestures.dart';
+import 'package:cis350_travel_app/signup.dart';
 import 'package:flutter/material.dart';
 import 'home.dart';
-import 'signup.dart';
 import 'server.dart';
+import 'food.dart';
 
+
+/* Setup main to run applicaiton */
 void main() async {
   runApp(const MaterialApp(
     title: 'Navigation Basics',
@@ -11,6 +13,7 @@ void main() async {
   ));
 }
 
+/* Class to create login page of application */
 class MyApp extends StatefulWidget {
   const MyApp({super.key});
 
@@ -18,21 +21,25 @@ class MyApp extends StatefulWidget {
   _MyAppState createState() => _MyAppState();
 }
 
+/* Subclass made to create the functionality of the login page */
 class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
+    /* Variables for user input */
     final myEmailController = TextEditingController();
     final myPasswordController = TextEditingController();
 
+  /* This override clears the user input */
     @override
     void dispose() {
       myEmailController.dispose();
       myPasswordController.dispose();
       super.dispose();
     }
-
+    /* Output of the class to the application */
     return MaterialApp(
       home: Scaffold(
+        /* Appbar UI  */
         appBar: AppBar(
           title: const Text('Travel App',
               style: TextStyle(
@@ -43,6 +50,8 @@ class _MyAppState extends State<MyApp> {
           backgroundColor: Colors.blue,
           centerTitle: true,
         ),
+
+        /* Login UI */
         body: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -54,6 +63,8 @@ class _MyAppState extends State<MyApp> {
                     color: Colors.blue,
                     fontWeight: FontWeight.bold),
               ),
+
+              /* Email input UI and user input */
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 30),
                 child: Form(
@@ -76,10 +87,12 @@ class _MyAppState extends State<MyApp> {
                     ),
                   ),
 
+                  /* Spacing */
                   const SizedBox(
                     height: 15,
                   ),
 
+                  /* Password input UI and user input */
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 15),
                     child: TextFormField(
@@ -98,37 +111,40 @@ class _MyAppState extends State<MyApp> {
                     ),
                   ),
 
+                  /* Spacing */
                   const SizedBox(
                     height: 15,
                   ),
 
+                  /* Login Button UI */
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 35),
                     child: MaterialButton(
                       minWidth: double.infinity,
+                      color: Colors.blue,
+                      textColor: Colors.white,
+                      child: const Text('Login'),
                       onPressed: () async {
-                        // /* Test code */
-                        final userAuthentication =
-                            await MongoDatabase.getUserAuthentication(
-                                myEmailController.text);
+                        /* Filter through database */
+                        final userAuthentication = await MongoDatabase.getUserAuthentication(myEmailController.text);
 
+                        /* Error checking for empty database */
                         if (userAuthentication != null) {
-                          // compare user entry
-                          if ((myEmailController.text ==
-                                  userAuthentication["email"]) &&
-                              (myPasswordController.text ==
-                                  userAuthentication["password"])) {
-                            // Add code here
+                          // compare user entry too database
+                          if ((myEmailController.text == userAuthentication["email"]) && (myPasswordController.text == userAuthentication["password"])) {
+                            
+                            /* Routes the page to the Home page */
                             Navigator.pushAndRemoveUntil(
                               context,
                               MaterialPageRoute(
                                 builder: (BuildContext context) {
-                                  return Home();
+                                  return const Home();
                                 },
                               ),
                               (route) => false,
                             );
-                          } else {
+                          } 
+                          else {
                             /* Output when a invalid entry is made */
                             showDialog(
                                 context: context,
@@ -142,47 +158,29 @@ class _MyAppState extends State<MyApp> {
                           }
                         }
                       },
-                      color: Colors.blue,
-                      textColor: Colors.white,
-                      child: const Text('Login'),
                     ),
                   ),
 
+                  /* Create an Account UI and Routing to Sign Up Page*/
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 35),
                     child: GestureDetector(
+                      child: const Text('Create an account'),
                         onTap: () {
-                          // Add code here
+                          /* Route to Sign Up Page */
                           Navigator.pushAndRemoveUntil(
                             context,
                             MaterialPageRoute(
                               builder: (BuildContext context) {
                                 return Signup();
+                                //return const Food();
                               },
                             ),
                             (route) => false,
                           );
                         },
-                        child: Text('Create an account')),
+                      ),
                   ),
-
-                  /* Debuggin Server */
-                  // Padding(
-                  //   padding: const EdgeInsets.all(10),
-                  //   child: MaterialButton(
-                  //     minWidth: double.infinity,
-                  //     onPressed: (){
-                  //       /* Test code */
-                  //       //MongoDatabase.connect();
-                  //       MongoDatabase.sendData();
-                  //      // MongoDatabase.close();
-                  //     },
-
-                  //     color: Colors.red,
-                  //     textColor: Colors.black,
-                  //     child: const Text('Press This'),
-                  //   )
-                  // ),
                 ])),
               ),
             ]),
