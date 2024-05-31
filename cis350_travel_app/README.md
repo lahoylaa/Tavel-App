@@ -1,16 +1,28 @@
-# cis350_travel_app
+# Travel Wiki Destination App
 
-A new Flutter project.
+## Made by:
 
-## Getting Started
+### Aeron Lahoylahoy
 
-This project is a starting point for a Flutter application.
+### Hannah Vergon
 
-A few resources to get you started if this is your first Flutter project:
+### Nolan Smith
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+___
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+# 1 Abstract
+
+Travel and overall tourism today is more popular and possible than ever before. With the overwhelming amount of places 
+<br />to go which include countless restaurants, landmarks, and so much more, 
+
+<figure>
+<img src="https://i.ibb.co/mzSGdqd/Use-Case-Checkpoint1.png" alt="Use-Case-Checkpoint1"
+style="width:100%">
+<figcaption align = "center"><b>Fig.1 - Use Case Diagram</b></figcaption>
+</figure>
+
+<figure>
+<img src="https://i.ibb.co/WHtbqL4/Class-Diagram-Checkpoint1.png" alt="Class-Diagram-Checkpoint1"
+style="width:100%">
+<figcaption align = "center"><b>Fig.2 - Class Diagram</b></figcaption>
+</figure>
