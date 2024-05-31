@@ -1,9 +1,10 @@
-import 'dart:developer';
 import 'package:mongo_dart/mongo_dart.dart';
 
+/* Class to store databse functions */
 class MongoDatabase {
-  static String database =
-      'mongodb+srv://imbabyfat:CIS350_Travel_App@travelapp.kqkinpi.mongodb.net/TravelApp?retryWrites=true&w=majority';
+  /* Databse URI */
+  static String database = 
+  'mongodb+srv://imbabyfat:CIS350_Travel_App@travelapp.kqkinpi.mongodb.net/TravelApp?retryWrites=true&w=majority';
 
 /* Retrieves the location information based on user input */
   static Future<List<Map<String, dynamic>>?> getLocation(String location) async {
