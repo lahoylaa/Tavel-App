@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:cis350_travel_app/server.dart'; // Importing server.dart
+import 'server.dart';
 
 class Location extends StatefulWidget {
   final String parameter;
@@ -20,7 +20,7 @@ class _LocationState extends State<Location> {
   }
 
   Future<void> outputLocation() async {
-      var locationData = await MongoDatabase.getLocation(widget.parameter);
+      final locationData = await MongoDatabase.getLocation("Michigan");
       setState(() {
         locations = locationData!;
       });
@@ -63,8 +63,8 @@ class _LocationState extends State<Location> {
               itemBuilder: (context, index) {
                 var location = locations[index];
                 return ListTile(
-                  title: Text(location['location']),
-                  subtitle: Text(location['location_rank']),
+                  title: Text((index+1).toString()+'. '+ location['location']),
+                  //subtitle: Text(location['food']),
                 );
               },
             ),
