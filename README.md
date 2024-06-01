@@ -13,7 +13,7 @@ ___
 # 1 Abstract
 
 Travel and overall tourism today is more popular and possible than ever before. With the overwhelming amount of places 
-to go which include countless<br />restaurants, landmarks, and so much more, it can be difficult to plan an itinerary based on your goals on a vacation. Travel Wiki looks to aid in the search<br />for the perfect trip, offering extensive information on attractions close to your destination.
+to go, which include countless<br />restaurants, landmarks, and so much more, it can be difficult to plan an itinerary based on your goals on a vacation. Travel Wiki looks to aid in the search<br />for the perfect trip, offering extensive information on attractions close to your destination.
 
 # 2 Introduction
 
@@ -21,7 +21,7 @@ Travel Wiki offers users to sign up to an account to enable the usage of the 'sa
 
 ## 2.1 Use Case Diagram
 
-The diagram in Figure 1 defines the different functions of the app and its dependencies if it has any, such as the serch function which depends on the<br />database to function.
+The diagram in Figure 1 defines the different functions of the app and its dependencies if it has any, such as the search function which depends on the<br />database to function.
 
 <figure>
 <img src="https://i.ibb.co/mzSGdqd/Use-Case-Checkpoint1.png" alt="Use-Case-Checkpoint1"
@@ -41,7 +41,7 @@ style="width:100%">
 
 ## 2.3 Sequence Diagram
 
-Figure 3 shows the sequnce diagram for the app. It walks through the login process, search process, initial home screen state, and how locations are saved<br />to the user account.
+Figure 3 shows the sequnce diagram for the app. It walks through the login/signup process, search process, initial home screen state, and how locations are saved<br />to the user account.
 
 <figure>
 <img src="https://i.ibb.co/X7PPF10/Sequence-Diagram-Checkpoint1.png" alt="Sequence-Diagram-Checkpoint1" style="width:100%">
