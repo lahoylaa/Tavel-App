@@ -2,7 +2,6 @@ import 'package:cis350_travel_app/signup.dart';
 import 'package:flutter/material.dart';
 import 'home.dart';
 import 'server.dart';
-import 'food.dart';
 
 
 /* Setup main to run applicaiton */
@@ -172,7 +171,7 @@ class _MyAppState extends State<MyApp> {
                             context,
                             MaterialPageRoute(
                               builder: (BuildContext context) {
-                                return Signup();
+                                return const Signup();
                                 //return const Food();
                               },
                             ),
