@@ -27,7 +27,7 @@ class _mySignupState extends State<Signup> {
               fontSize: 20.0,
               fontWeight: FontWeight.bold,
             )),
-        backgroundColor: Colors.blue,
+        backgroundColor: Color.fromARGB(255, 37, 55, 209),
         centerTitle: true,
       ),
 
@@ -53,7 +53,7 @@ class SignupForm extends StatelessWidget {
         const Text('Sign Up',
             style: TextStyle(
               fontSize: 35,
-              color: Colors.blue,
+              color: Color.fromARGB(255, 37, 55, 209),
               fontWeight: FontWeight.bold,
             )),
 
@@ -120,8 +120,8 @@ class SignupForm extends StatelessWidget {
         Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8),
             child: MaterialButton(
-              minWidth: double.infinity,
-              color: Colors.blue,
+              minWidth: 300,
+              color: Color.fromARGB(255, 37, 55, 209),
               textColor: Colors.white,
               child: const Text('Create an Account'),
               onPressed: () {

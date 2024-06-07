@@ -52,7 +52,7 @@ class _myHomeState extends State<Home> {
                 fontSize: 20.0,
                 fontWeight: FontWeight.bold,
               )),
-          backgroundColor: Colors.blue,
+          backgroundColor: Color.fromARGB(255, 37, 55, 209),
           centerTitle: true,
           leading: Builder(
             builder: (context) {
@@ -74,9 +74,9 @@ class _myHomeState extends State<Home> {
           children: [
             const DrawerHeader(
               decoration: BoxDecoration(
-                color: Colors.red,
+                color: Color.fromARGB(255, 255, 49, 5),
               ),
-              child: Text('Drawer Header'),
+              child: Text('Menu'),
             ),
             ListTile(
                 title: const Text('Home'),

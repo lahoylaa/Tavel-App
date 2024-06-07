@@ -40,27 +40,35 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       home: Scaffold(
         /* Appbar UI  */
-        appBar: AppBar(
-          title: const Text('Travel App',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 20.0,
-                fontWeight: FontWeight.bold,
-              )),
-          backgroundColor: Colors.blue,
-          centerTitle: true,
-        ),
+        // appBar: AppBar(
+        //   title: const Text('Travel App',
+        //       style: TextStyle(
+        //         color: Colors.white,
+        //         fontSize: 20.0,
+        //         fontWeight: FontWeight.bold,
+        //       )),
+        //   backgroundColor: Colors.blue,
+        //   centerTitle: true,
+        // ),
 
         /* Login UI */
-        body: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+        body: Container(
+          /* Background Image */
+          decoration: const BoxDecoration(
+              image: DecorationImage(
+            image: AssetImage("travel.jpg"),
+            fit: BoxFit.cover,
+          )),
+   
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.end,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               const Text(
                 'Login',
                 style: TextStyle(
                     fontSize: 35,
-                    color: Colors.blue,
+                    color: Color.fromARGB(255, 37, 55, 209),
                     fontWeight: FontWeight.bold),
               ),
 
@@ -120,8 +128,8 @@ class _MyAppState extends State<MyApp> {
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 35),
                     child: MaterialButton(
-                      minWidth: double.infinity,
-                      color: Colors.blue,
+                      minWidth: 300,
+                      color: Color.fromARGB(255, 37, 55, 209),
                       textColor: Colors.white,
                       child: const Text('Login'),
                       onPressed: () async {
@@ -165,7 +173,7 @@ class _MyAppState extends State<MyApp> {
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 35),
                     child: GestureDetector(
-                      child: const Text('Create an account'),
+                      child: const Text('\nCreate an account'),
                         onTap: () {
                           /* Route to Sign Up Page */
                           Navigator.pushAndRemoveUntil(
@@ -184,6 +192,7 @@ class _MyAppState extends State<MyApp> {
                 ])),
               ),
             ]),
+        ),
       ),
     );
   }
