@@ -43,7 +43,8 @@ class _myHomeState extends State<Home> {
     final myLocationController = TextEditingController();
 
     /* Output of the class to the application */
-    return Scaffold(
+    return MaterialApp(
+      home: Scaffold(
       /* Appbar UI */
         appBar: AppBar(
           title: const Text('Travel App',
@@ -156,6 +157,6 @@ class _myHomeState extends State<Home> {
               )
             ],
           ),
-        ));
+        )));
   }
 }

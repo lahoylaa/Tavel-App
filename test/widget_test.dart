@@ -8,6 +8,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:cis350_travel_app/main.dart';
+import 'package:cis350_travel_app/home.dart';
 
 void main() {
   testWidgets('Login page test', (WidgetTester tester) async {
@@ -16,17 +17,30 @@ void main() {
 
     // Verify that login text is detected when started.
     expect(find.text('Login'), findsWidgets);
-    
-    /*
-    expect(find.text('1'), findsNothing);
 
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
-    await tester.pump();
+    final emailField = find.ancestor(
+      of: find.text('Email'),
+      matching: find.byType(TextFormField),
+    );
 
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
-    */
+    final passwordField = find.ancestor(
+      of: find.text('Password'),
+      matching: find.byType(TextFormField),
+    );
+
+    await tester.enterText(emailField, 'NolanSmith@example.com');
+    await tester.enterText(passwordField, 'nolansmith123');
+    expect(find.text('NolanSmith@example.com'), findsOneWidget);
+    expect(find.text('nolansmith123'), findsOneWidget);
+    //await tester.tap(find.byType(MaterialButton));
+
+    //await tester.pump();
+  });
+
+  testWidgets('Home page test', (WidgetTester tester) async {
+    // Build our app and trigger a frame.
+    await tester.pumpWidget(const Home());
+
+    expect(find.text('Travel App'), findsOneWidget);
   });
 }
