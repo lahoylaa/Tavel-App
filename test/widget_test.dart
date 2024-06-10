@@ -32,9 +32,6 @@ void main() {
     await tester.enterText(passwordField, 'nolansmith123');
     expect(find.text('NolanSmith@example.com'), findsOneWidget);
     expect(find.text('nolansmith123'), findsOneWidget);
-    //await tester.tap(find.byType(MaterialButton));
-
-    //await tester.pump();
   });
 
   testWidgets('Home page test', (WidgetTester tester) async {
@@ -42,5 +39,11 @@ void main() {
     await tester.pumpWidget(const Home());
 
     expect(find.text('Travel App'), findsOneWidget);
+
+    await tester.tap(find.byIcon(Icons.menu));
+
+    await tester.pump();  //use pumAndSettle if not working
+
+    expect(find.text('Saved Locations'), findsOneWidget);
   });
 }
