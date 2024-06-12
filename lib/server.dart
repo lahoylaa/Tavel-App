@@ -27,6 +27,29 @@ class MongoDatabase {
 
     return userData;
   }
+
+  /* Send user information to database */
+  static Future<void> sendUserAuthentication(String name, String email, String password) async {
+    /* final db = await Db.create(database);
+    final collection = db.collection('Login');
+    final userInformation = {
+      'name': name,
+      'email': email,
+      'password': password,
+    };
+    await db.open();
+    await collection.insert(userInformation);
+    await db.close(); */
+    var db = await Db.create(database);
+    await db.open();
+    var coll = db.collection('Login');
+    await coll.insertOne({
+      "name": name,
+      "email": email,
+      "password": password,
+    });
+    await db.close();
+  }
 }
 
 /* Establish the server connection */
