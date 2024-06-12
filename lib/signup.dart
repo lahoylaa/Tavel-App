@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'home.dart';
+import 'server.dart';
 
 /// ***************
 /// FIX: Need to add password verification before routing 
@@ -20,6 +21,7 @@ class _mySignupState extends State<Signup> {
   Widget build(BuildContext context) {
     return Scaffold(
       /* Appbar UI */
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         title: const Text('Travel App',
             style: TextStyle(
@@ -43,6 +45,12 @@ class SignupForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    /* Variables for user input */
+    final myNameController = TextEditingController();
+    final myEmailController = TextEditingController();
+    final myPasswordController = TextEditingController();
+    final myRePasswordController = TextEditingController();
+
     return Center(
         child: Column(
       mainAxisAlignment: MainAxisAlignment.start,
@@ -61,13 +69,19 @@ class SignupForm extends StatelessWidget {
         const SizedBox(height: 20),
 
         /* Prompt name */
-        const Padding(
-          padding: EdgeInsets.symmetric(horizontal: 8),
-          child: TextField(
-            decoration: InputDecoration(
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 8),
+          child: TextFormField(
+            keyboardType: TextInputType.name,
+            controller: myNameController,
+            decoration: const InputDecoration(
               labelText: 'Name',
               border: OutlineInputBorder(),
             ),
+            onChanged: (String value) {},
+            validator: (value) {
+              return value!.isEmpty ? 'Please enter name' : null;
+            },
           ),
         ),
 
@@ -75,13 +89,19 @@ class SignupForm extends StatelessWidget {
         const SizedBox(height: 20),
 
         /* Prompt email */
-        const Padding(
-          padding: EdgeInsets.symmetric(horizontal: 8),
-          child: TextField(
-            decoration: InputDecoration(
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 8),
+          child: TextFormField(
+            keyboardType: TextInputType.emailAddress,
+            controller: myEmailController,
+            decoration: const InputDecoration(
               labelText: 'Email',
               border: OutlineInputBorder(),
             ),
+            onChanged: (String value) {},
+            validator: (value) {
+              return value!.isEmpty ? 'Please enter email' : null;
+            },
           ),
         ),
 
@@ -89,13 +109,19 @@ class SignupForm extends StatelessWidget {
         const SizedBox(height: 20),
 
         /* Prompt password */
-        const Padding(
-          padding: EdgeInsets.symmetric(horizontal: 8),
-          child: TextField(
-            decoration: InputDecoration(
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 8),
+          child: TextFormField(
+            keyboardType: TextInputType.visiblePassword,
+            controller: myPasswordController,
+            decoration: const InputDecoration(
               labelText: 'Password',
               border: OutlineInputBorder(),
             ),
+            onChanged: (String value) {},
+            validator: (value) {
+              return value!.isEmpty ? 'Please enter password' : null;
+            },
           ),
         ),
 
@@ -103,13 +129,19 @@ class SignupForm extends StatelessWidget {
         const SizedBox(height: 20),
 
         /* Prompt password again*/
-        const Padding(
-          padding: EdgeInsets.symmetric(horizontal: 8),
-          child: TextField(
-            decoration: InputDecoration(
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 8),
+          child: TextFormField(
+            keyboardType: TextInputType.visiblePassword,
+            controller: myRePasswordController,
+            decoration: const InputDecoration(
               labelText: 'Re-enter Password',
               border: OutlineInputBorder(),
             ),
+            onChanged: (String value) {},
+            validator: (value) {
+              return value!.isEmpty ? 'Please re-enter email' : null;
+            },
           ),
         ),
 
@@ -124,17 +156,32 @@ class SignupForm extends StatelessWidget {
               color: Colors.blue,
               textColor: Colors.white,
               child: const Text('Create an Account'),
-              onPressed: () {
-                /* Route page to Home() */
-                Navigator.pushAndRemoveUntil(
-                  context,
-                  MaterialPageRoute(
-                    builder: (BuildContext context) {
-                      return const Home();
-                    },
-                  ),
-                  (route) => false,
-                );
+              onPressed: () async {
+                /* Route page to Home() once information in database*/
+                if (myPasswordController.text == myRePasswordController.text) {
+                  await MongoDatabase.sendUserAuthentication(myNameController.text, myEmailController.text, myPasswordController.text);
+                  Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(
+                      builder: (BuildContext context) {
+                        return const Home();
+                      },
+                    ),
+                    (route) => false,
+                  );
+                }
+                else {
+                  /* Output when a invalid entry is made */
+                  showDialog(
+                      context: context,
+                      builder: (context) {
+                        return const AlertDialog(
+                            content: Text(
+                          'Invalid email or password',
+                          textAlign: TextAlign.center,
+                        ));
+                      });
+                }
               },
             ))
       ],
