@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'home.dart';
 import 'server.dart';
+import 'main.dart';
 
 /// ***************
 /// FIX: Need to add password verification before routing 
@@ -31,6 +32,24 @@ class _mySignupState extends State<Signup> {
             )),
         backgroundColor: Colors.blue,
         centerTitle: true,
+        leading: Builder(
+            builder: (context) {
+              return IconButton(
+                icon: const Icon(Icons.arrow_back),
+                onPressed: () {
+                  Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(
+                      builder: (BuildContext context) {
+                        return const MyApp();
+                      },
+                    ),
+                    (route) => false,
+                  );
+                }
+              );
+            },
+          ),
       ),
 
       /* Use function to center page */
