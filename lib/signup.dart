@@ -20,7 +20,8 @@ class Signup extends StatefulWidget {
 class _mySignupState extends State<Signup> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return MaterialApp(
+      home: Scaffold(
       /* Appbar UI */
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
@@ -54,7 +55,7 @@ class _mySignupState extends State<Signup> {
 
       /* Use function to center page */
       body: const SignupForm(),
-    );
+    ));
   }
 }
 
