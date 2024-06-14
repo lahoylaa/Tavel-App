@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:cis350_travel_app/main.dart';
 import 'package:cis350_travel_app/home.dart';
+import 'package:cis350_travel_app/signup.dart';
 
 void main() {
   testWidgets('Login page test', (WidgetTester tester) async {
@@ -45,5 +46,20 @@ void main() {
     await tester.pump();  //use pumAndSettle if not working
 
     expect(find.text('Saved Locations'), findsOneWidget);
+  });
+
+  testWidgets('Signup page test', (WidgetTester tester) async {
+    // Build our app and trigger a frame.
+    await tester.pumpWidget(const Signup());
+
+    expect(find.text('Name'), findsOneWidget);
+    expect(find.text('Email'), findsOneWidget);
+    expect(find.text('Re-enter Password'), findsOneWidget);
+
+    await tester.tap(find.byIcon(Icons.arrow_back));
+
+    await tester.pumpAndSettle();  //use pumAndSettle if not working
+
+    expect(find.text('Login'), findsWidgets);
   });
 }

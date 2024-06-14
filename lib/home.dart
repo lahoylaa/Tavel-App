@@ -1,6 +1,7 @@
 import 'package:cis350_travel_app/server.dart';
 import 'package:flutter/material.dart';
 import 'location.dart';
+import 'tab.dart';
 
 /* Class to create home page of application */
 class Home extends StatefulWidget {
@@ -14,7 +15,7 @@ class Home extends StatefulWidget {
 class _myHomeState extends State<Home> {
 
   /* Variables for tab bar */
-  int selectedIndex = 0;
+  /* 
   static const TextStyle optionStyle = TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   static const List<Widget> widgetOptions = <Widget>[
     Text(
@@ -30,12 +31,7 @@ class _myHomeState extends State<Home> {
       style: optionStyle,
     ),
   ];
-
-  void onItemTapped(int index) {
-    setState(() {
-      selectedIndex = index;
-    });
-  }
+  */
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +41,9 @@ class _myHomeState extends State<Home> {
     /* Output of the class to the application */
     return MaterialApp(
       home: Scaffold(
-      /* Appbar UI */
+        /*defines drawer from tab.dart*/
+        drawer: const PubDrawer(),
+        /* Appbar UI */
         appBar: AppBar(
           title: const Text('Travel App',
               style: TextStyle(
@@ -55,50 +53,20 @@ class _myHomeState extends State<Home> {
               )),
           backgroundColor: Colors.blue,
           centerTitle: true,
-          leading: Builder(
-            builder: (context) {
-              return IconButton(
+          /*For future pages that need menu on right side*/
+          leading: Container(),
+          actions: <Widget>[
+            Builder(
+              builder: (context) => IconButton(
                 icon: const Icon(Icons.menu),
                 onPressed: () {
-                  Scaffold.of(context).openDrawer();
+                  Scaffold.of(context).openEndDrawer();
                 },
-              );
-            },
-          ),
-        ),
-
-        /* Tab UI */
-        /* FIX: Not finished */
-        drawer: Drawer(
-            child: ListView(
-          padding: EdgeInsets.zero,
-          children: [
-            const DrawerHeader(
-              decoration: BoxDecoration(
-                color: Colors.red,
               ),
-              child: Text('Drawer Header'),
             ),
-            ListTile(
-                title: const Text('Home'),
-                selected: selectedIndex == 0,
-                onTap: () {
-                  onItemTapped(0);
-                }),
-            ListTile(
-                title: const Text('Saved Locations'),
-                selected: selectedIndex == 1,
-                onTap: () {
-                  onItemTapped(1);
-                }),
-            ListTile(
-                title: const Text('Account Settings'),
-                selected: selectedIndex == 2,
-                onTap: () {
-                  onItemTapped(2);
-                })
           ],
-        )),
+        ),
+        endDrawer: const PubDrawer(),
 
         /* Home UI */
         body: Container(

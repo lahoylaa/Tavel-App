@@ -58,4 +58,6 @@ Once the Travel Wiki application is installed and opened, the user will be promt
 
 #### 3.1.2 Home Page
 
-Once one the home page, the user has multiple options to explore. Interacting with the search bar, a location can be input which will lead to the location's dedicated page. Another option is to select the menu button, where the users account information, saved locations, and _______ can be found.
+Once one the home page, the user has multiple options to explore. Interacting with the search bar, a location can be input which will lead to the location's dedicated page. Another option is to select the menu button, where the users account information and saved locations can be found.
+
+## 4 Risk Analysis and Retrospective
