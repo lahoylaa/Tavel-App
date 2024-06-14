@@ -178,7 +178,7 @@ class SignupForm extends StatelessWidget {
               child: const Text('Create an Account'),
               onPressed: () async {
                 /* Route page to Home() once information in database*/
-                if (myPasswordController.text == myRePasswordController.text) {
+                if ((myPasswordController.text == myRePasswordController.text) && myEmailController.text.isNotEmpty) {
                   await MongoDatabase.sendUserAuthentication(myNameController.text, myEmailController.text, myPasswordController.text);
                   Navigator.pushAndRemoveUntil(
                     context,
@@ -190,14 +190,25 @@ class SignupForm extends StatelessWidget {
                     (route) => false,
                   );
                 }
-                else {
-                  /* Output when a invalid entry is made */
+                else if (myEmailController.text.isEmpty) {
                   showDialog(
                       context: context,
                       builder: (context) {
                         return const AlertDialog(
                             content: Text(
-                          'Invalid email or password',
+                          'Invalid email',
+                          textAlign: TextAlign.center,
+                        ));
+                      });
+                }
+                else{
+                  /* Output when passwords don't match */
+                  showDialog(
+                      context: context,
+                      builder: (context) {
+                        return const AlertDialog(
+                            content: Text(
+                          'Passwords do not match',
                           textAlign: TextAlign.center,
                         ));
                       });

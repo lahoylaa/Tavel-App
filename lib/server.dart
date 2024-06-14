@@ -30,16 +30,6 @@ class MongoDatabase {
 
   /* Send user information to database */
   static Future<void> sendUserAuthentication(String name, String email, String password) async {
-    /* final db = await Db.create(database);
-    final collection = db.collection('Login');
-    final userInformation = {
-      'name': name,
-      'email': email,
-      'password': password,
-    };
-    await db.open();
-    await collection.insert(userInformation);
-    await db.close(); */
     var db = await Db.create(database);
     await db.open();
     var coll = db.collection('Login');
@@ -47,7 +37,22 @@ class MongoDatabase {
       "name": name,
       "email": email,
       "password": password,
+      "recent_id": "NULL",
+      "save_id": "NULL",
     });
+    await db.close();
+  }
+
+  /* Update user information on database */
+  static Future<void> changeUserInfo(String id, String newRecentIDValue, String newSaveIDValue) async {
+    var db = await Db.create(database);
+    await db.open();
+    var coll = db.collection('Login');
+    var selector = where.eq('_id', ObjectId.parse(id));
+    var update1 = modify.set('recent_id', newRecentIDValue);
+    var update2 = modify.set('save_id', newSaveIDValue);
+    await coll.update(selector, update1);
+    await coll.update(selector, update2);
     await db.close();
   }
 }
