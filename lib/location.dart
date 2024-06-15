@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'server.dart';
+import 'info.dart';
+
+// Testing
+import 'Home.dart';
 
 /* Class to create location page of application */
 class Location extends StatefulWidget {
@@ -9,7 +13,7 @@ class Location extends StatefulWidget {
   const Location({super.key, required this.parameter});
 
   @override
-  _LocationState createState() => _LocationState(); 
+  _LocationState createState() => _LocationState();
 }
 
 /* Subclass to create functionality of the location page */
@@ -26,10 +30,11 @@ class _LocationState extends State<Location> {
 
 /* Function to call database and set state */
   Future<void> outputLocation() async {
-      final locationData = await MongoDatabase.getLocation("Michigan");
-      setState(() {
-        locations = locationData!;
-      });
+    // fix this it wont work with wdiget.parameter
+    final locationData = await MongoDatabase.getLocation(widget.parameter);
+    setState(() {
+      locations = locationData!;
+    });
   }
 
   @override
@@ -64,27 +69,70 @@ class _LocationState extends State<Location> {
 
       /* Location UI */
       body: Column(
-
         /* Adds location name to page based on user input*/
         children: [
-          Padding(
-            padding: const EdgeInsets.all(10),
-            child: Text(widget.parameter), // Display the parameter value
-          ),
+          // Padding(
+          //   padding: const EdgeInsets.all(10),
+          //   child: Text(widget.parameter), // Display the parameter value
+          // ),
 
           /* Lists the data from database to body */
           Expanded(
-            child: ListView.builder(
-              itemCount: locations.length,
-              itemBuilder: (context, index) {
-                var location = locations[index];
-                return ListTile(
-                  /* Fix: Implement sort */
-                  title: Text('${index+1}. '+ location['location']),
-                );
-              },
-            ),
+              flex: 3, // changes the size of the body
+              child: Container(
+                decoration: BoxDecoration(
+                    image: DecorationImage(
+                        image: AssetImage("assets/${widget.parameter}Main.jpg"),
+                        fit: BoxFit.cover)),
+              )),
+
+          const SizedBox(
+            height: 15,
           ),
+
+          Expanded(
+              flex: 6,
+              child: Center(
+                  child: ListView.builder(
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemCount: locations.length,
+                      itemBuilder: (context, index) {
+                        var location = locations[index];
+                        return MaterialButton(
+                            minWidth: 10.0,
+                            // Testing for boundaries of the button
+                            //color: Colors.red,
+                            onPressed: () {
+                              Navigator.pushAndRemoveUntil(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (BuildContext context) {
+                                    return Info(
+                                        parameter: widget.parameter,
+                                        city: index);
+                                  },
+                                  //return const Home();
+                                ),
+                                (route) => false,
+                              );
+                            },
+                            child: Container(
+                                margin: EdgeInsets.symmetric(
+                                    vertical: 5.0, horizontal: 5.0),
+                                padding: EdgeInsets.all(5.0),
+                                decoration: BoxDecoration(
+                                  border: Border.all(
+                                    color: Colors.blue,
+                                    width: 2.0,
+                                  ),
+                                  borderRadius: BorderRadius.circular(10.0),
+                                ),
+                                child: ListTile(
+                                  title: Text(
+                                    '${index + 1}. ' + location['location'],
+                                  ),
+                                )));
+                      }))),
         ],
       ),
     );
