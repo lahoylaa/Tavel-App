@@ -3,7 +3,7 @@ import 'server.dart';
 import 'info.dart';
 
 // Testing
-import 'Home.dart';
+import 'home.dart';
 
 /* Class to create location page of application */
 class Location extends StatefulWidget {
