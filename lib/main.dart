@@ -50,9 +50,17 @@ class _MyAppState extends State<MyApp> {
           centerTitle: true,
         ),
 
+        body: Container(
+          /* Background Image */
+          decoration: const BoxDecoration(
+              image: DecorationImage(
+            image: AssetImage("assets/travel.jpg"),
+            fit: BoxFit.cover,
+          )),
+        
         /* Login UI */
-        body: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+        child: Column(
+            mainAxisAlignment: MainAxisAlignment.end,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               const Text(
@@ -178,7 +186,7 @@ class _MyAppState extends State<MyApp> {
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 35),
                     child: GestureDetector(
-                      child: const Text('Create an account'),
+                      child: const Text('\nCreate an account'),
                       onTap: () {
                         /* Route to Sign Up Page */
                         Navigator.pushAndRemoveUntil(
@@ -197,6 +205,7 @@ class _MyAppState extends State<MyApp> {
                 ])),
               ),
             ]),
+        ),
       ),
     );
   }
