@@ -12,15 +12,15 @@ class MongoDatabase {
     //final db = Db(database);
     final db = await Db.create(database);
     final collection = db.collection(location);
-    // try{
+    try{
     await db.open();
     final userData = await collection.find().toList();
     await db.close();
     return userData;
-    // }catch(e){
-    //    log(e.toString() + " Get Location Error");
-    //    return null;
-    // }
+    }catch(e){
+       log(e.toString() + " Get Location Error");
+       return null;
+    }
   }
 
   /* Retreive user information from database */
