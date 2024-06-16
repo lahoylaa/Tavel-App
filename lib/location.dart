@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'server.dart';
 import 'info.dart';
-
-// Testing
-import 'home.dart';
+import 'tab.dart';
+import 'Home.dart';
 
 /* Class to create location page of application */
 class Location extends StatefulWidget {
@@ -41,31 +40,45 @@ class _LocationState extends State<Location> {
   Widget build(BuildContext context) {
     return Scaffold(
       /* Appbar UI */
+      /*defines drawer from tab.dart*/
+      drawer: const PubDrawer(),
+      /* Appbar UI */
       appBar: AppBar(
-        title: const Text(
-          'Travel App',
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 20.0,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
+        title: const Text('Travel App',
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 20.0,
+              fontWeight: FontWeight.bold,
+            )),
         backgroundColor: Colors.blue,
         centerTitle: true,
-
-        /* Structure for tab */
-        /* Fix: Need implementation */
-        leading: Builder(
-          builder: (context) {
-            return IconButton(
-              icon: const Icon(Icons.menu),
-              onPressed: () {
-                Scaffold.of(context).openDrawer();
-              },
+        /*For future pages that need menu on right side*/
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back_ios),
+          onPressed: () {
+            Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(
+                builder: (BuildContext context) {
+                  return Home();
+                },
+              ),
+              (route) => false,
             );
           },
         ),
+        actions: <Widget>[
+          Builder(
+            builder: (context) => IconButton(
+              icon: const Icon(Icons.menu),
+              onPressed: () {
+                Scaffold.of(context).openEndDrawer();
+              },
+            ),
+          ),
+        ],
       ),
+      endDrawer: const PubDrawer(),
 
       /* Location UI */
       body: Column(
