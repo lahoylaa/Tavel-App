@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'main.dart';
 
 class PubDrawer extends StatefulWidget{
   const PubDrawer({super.key});
@@ -27,7 +28,7 @@ class _myTabState extends State<PubDrawer>{
           decoration: BoxDecoration(
             color: Colors.red,
           ),
-          child: Text('Drawer Header'),
+          child: Text('Menu'),
         ),
         ListTile(
             title: const Text('Home'),
@@ -46,6 +47,20 @@ class _myTabState extends State<PubDrawer>{
             selected: selectedIndex == 2,
             onTap: () {
               onItemTapped(2);
+            }),
+        ListTile(
+            title: const Text('Sign Out'),
+            selected: selectedIndex == 3,
+            onTap: () {
+              Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(
+                  builder: (BuildContext context) {
+                    return const MyApp();
+                  },
+                ),
+                (route) => false,
+              );
             })
       ],
     ));
