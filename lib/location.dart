@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'server.dart';
 import 'info.dart';
 import 'tab.dart';
-import 'Home.dart';
+import 'home.dart';
 
 /* Class to create location page of application */
 class Location extends StatefulWidget {
