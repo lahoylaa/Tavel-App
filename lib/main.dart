@@ -186,6 +186,7 @@ class _MyAppState extends State<MyApp> {
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 35),
                     child: GestureDetector(
+
                       child: const Text('\nCreate an account'),
                       onTap: () {
                         /* Route to Sign Up Page */
@@ -194,7 +195,7 @@ class _MyAppState extends State<MyApp> {
                           MaterialPageRoute(
                             builder: (BuildContext context) {
                               return const Signup();
-                              //return const Food();
+                              //return const Signup();
                             },
                           ),
                           (route) => false,
