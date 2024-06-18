@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'home.dart';
 import 'server.dart';
 
-
 /* Setup main to run applicaiton */
 void main() async {
   runApp(const MaterialApp(
@@ -28,13 +27,14 @@ class _MyAppState extends State<MyApp> {
     final myEmailController = TextEditingController();
     final myPasswordController = TextEditingController();
 
-  /* This override clears the user input */
+    /* This override clears the user input */
     @override
     void dispose() {
       myEmailController.dispose();
       myPasswordController.dispose();
       super.dispose();
     }
+
     /* Output of the class to the application */
     return MaterialApp(
       home: Scaffold(
@@ -50,9 +50,17 @@ class _MyAppState extends State<MyApp> {
           centerTitle: true,
         ),
 
+        body: Container(
+          /* Background Image */
+          decoration: const BoxDecoration(
+              image: DecorationImage(
+            image: AssetImage("assets/travel.jpg"),
+            fit: BoxFit.cover,
+          )),
+        
         /* Login UI */
-        body: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+        child: Column(
+            mainAxisAlignment: MainAxisAlignment.end,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               const Text(
@@ -125,13 +133,16 @@ class _MyAppState extends State<MyApp> {
                       child: const Text('Login'),
                       onPressed: () async {
                         /* Filter through database */
-                        final userAuthentication = await MongoDatabase.getUserAuthentication(myEmailController.text);
+                        final userAuthentication =
+                            await MongoDatabase.getUserAuthentication(
+                                myEmailController.text);
 
                         /* Error checking for empty database */
                         if (userAuthentication != null) {
                           // compare user entry too database
-                          if ((myEmailController.text == userAuthentication["email"]) && (myPasswordController.text == userAuthentication["password"])) {
-                            
+                          if (
+                              (myEmailController.text == userAuthentication["email"]) && (myPasswordController.text ==
+                                  userAuthentication["password"])) {
                             /* Routes the page to the Home page */
                             Navigator.pushAndRemoveUntil(
                               context,
@@ -142,20 +153,31 @@ class _MyAppState extends State<MyApp> {
                               ),
                               (route) => false,
                             );
-                          } 
-                          else {
+                          } else {
                             /* Output when a invalid entry is made */
                             showDialog(
                                 context: context,
                                 builder: (context) {
                                   return const AlertDialog(
                                       content: Text(
-                                    'Invalid email or password',
+                                    'Password Incorrect',
                                     textAlign: TextAlign.center,
                                   ));
                                 });
                           }
                         }
+                        // } else {
+                        //   /* Output when a invalid entry is made */
+                        //   showDialog(
+                        //       context: context,
+                        //       builder: (context) {
+                        //         return const AlertDialog(
+                        //             content: Text(
+                        //           'Invalid email or password',
+                        //           textAlign: TextAlign.center,
+                        //         ));
+                        //       });
+                        // }
                       },
                     ),
                   ),
@@ -164,24 +186,27 @@ class _MyAppState extends State<MyApp> {
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 35),
                     child: GestureDetector(
-                      child: const Text('Create an account'),
-                        onTap: () {
-                          /* Route to Sign Up Page */
-                          Navigator.pushAndRemoveUntil(
-                            context,
-                            MaterialPageRoute(
-                              builder: (BuildContext context) {
-                                return const Signup();
-                              },
-                            ),
-                            (route) => false,
-                          );
-                        },
-                      ),
+
+                      child: const Text('\nCreate an account'),
+                      onTap: () {
+                        /* Route to Sign Up Page */
+                        Navigator.pushAndRemoveUntil(
+                          context,
+                          MaterialPageRoute(
+                            builder: (BuildContext context) {
+                              return const Signup();
+                              //return const Signup();
+                            },
+                          ),
+                          (route) => false,
+                        );
+                      },
+                    ),
                   ),
                 ])),
               ),
             ]),
+        ),
       ),
     );
   }

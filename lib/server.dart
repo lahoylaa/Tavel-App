@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'package:mongo_dart/mongo_dart.dart';
 
 /* Class to store databse functions */
@@ -8,24 +9,36 @@ class MongoDatabase {
 
 /* Retrieves the location information based on user input */
   static Future<List<Map<String, dynamic>>?> getLocation(String location) async {
+    //final db = Db(database);
     final db = await Db.create(database);
     final collection = db.collection(location);
+    try{
     await db.open();
     final userData = await collection.find().toList();
     await db.close();
-
     return userData;
+    }catch(e){
+       log(e.toString() + " Get Location Error");
+       return null;
+    }
   }
 
   /* Retreive user information from database */
   static Future<Map<String, dynamic>?> getUserAuthentication(String email) async {
+
+    // NOTE: Only works for Db.create() otherwise it shows MongoDB connection error
+    // final db = Db(database);
     final db = await Db.create(database);
     final collection = db.collection('Login');
+    // try{
     await db.open();
     final userData = await collection.findOne(where.eq('email', email));
     await db.close();
-
     return userData;
+    // }catch(e){
+    //     log(e.toString() + " Get User Authentication Error");
+    //     return null;
+    // }
   }
 
   /* Send user information to database */

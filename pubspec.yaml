@@ -70,6 +70,10 @@ flutter:
   #   - images/a_dot_ham.jpeg
   assets:
     - assets/testpic1.jpg
+    - assets/MichiganMain.jpg
+    - assets/GrandRapids.jpg
+    - assets/travel.jpg
+    - assets/TraverseCity.jpg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
