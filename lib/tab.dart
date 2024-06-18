@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'main.dart';
+import 'home.dart';
+import 'saved.dart';
+import 'account.dart';
 
 class PubDrawer extends StatefulWidget{
   const PubDrawer({super.key});
@@ -35,18 +38,27 @@ class _myTabState extends State<PubDrawer>{
             selected: selectedIndex == 0,
             onTap: () {
               onItemTapped(0);
+              Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) {
+                return Home();
+              },),);
             }),
         ListTile(
             title: const Text('Saved Locations'),
             selected: selectedIndex == 1,
             onTap: () {
               onItemTapped(1);
+              Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) {
+                return Saved();
+              },),);
             }),
         ListTile(
             title: const Text('Account Settings'),
             selected: selectedIndex == 2,
             onTap: () {
               onItemTapped(2);
+              Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) {
+                return Account();
+              },),);
             }),
         ListTile(
             title: const Text('Sign Out'),
