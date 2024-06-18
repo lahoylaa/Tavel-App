@@ -11,9 +11,9 @@ class MongoDatabase {
   static Future<List<Map<String, dynamic>>?> getLocation(String location) async {
     //final db = Db(database);
     final db = await Db.create(database);
+    await db.open();
     final collection = db.collection(location);
     try{
-    await db.open();
     final userData = await collection.find().toList();
     await db.close();
     return userData;
@@ -27,11 +27,11 @@ class MongoDatabase {
   static Future<Map<String, dynamic>?> getUserAuthentication(String email) async {
 
     // NOTE: Only works for Db.create() otherwise it shows MongoDB connection error
-    // final db = Db(database);
-    final db = await Db.create(database);
+    final db = Db(database);
+    //final db = await Db.create(database);
+    await db.open();
     final collection = db.collection('Login');
     // try{
-    await db.open();
     final userData = await collection.findOne(where.eq('email', email));
     await db.close();
     return userData;
