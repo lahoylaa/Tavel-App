@@ -56,6 +56,7 @@ class _myTabState extends State<PubDrawer>{
                 context,
                 MaterialPageRoute(
                   builder: (BuildContext context) {
+                    //"Sign Out" by routing back to login
                     return const MyApp();
                   },
                 ),
