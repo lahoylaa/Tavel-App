@@ -52,6 +52,7 @@ class _LocationState extends State<Location> {
             )),
         backgroundColor: Colors.blue,
         centerTitle: true,
+        
         /*For future pages that need menu on right side*/
         leading: IconButton(
           icon: Icon(Icons.arrow_back_ios),
