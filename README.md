@@ -38,13 +38,14 @@ style="width:65%">
 <figcaption align = "center"><b>Fig.2 - Class Diagram</b></figcaption>
 </figure>
 
-### 2.3 Sequence Diagram
+### 2.3 Sequence & Communication Diagram
 
-Figure 3 shows the sequnce diagram for the app. It walks through the chronilogical order of the login/signup process, search process, initial home screen state, and how locations are saved to the user account.
+Figure 3 shows the sequnce and communication diagrams for the app. It walks through the chronilogical order of the login/signup process, search process, initial home screen state, and how locations are saved to the user account.
 
 <figure align="center">
-<img src="https://i.ibb.co/X7PPF10/Sequence-Diagram-Checkpoint1.png" alt="Sequence-Diagram-Checkpoint1" style="width:50%">
-<figcaption align = "center"><b>Fig.3 - Sequence Diagram</b></figcaption>
+<img src="https://i.ibb.co/X7PPF10/Sequence-Diagram-Checkpoint1.png" alt="Sequence-Diagram-Checkpoint1" style="width:45%">
+<img src="https://i.ibb.co/0jQz42y/Communication-Diagram.png"  width="700" />
+<figcaption align = "center"><b>Fig.3 - (a) Sequence Diagram (b) Communication Diagram</b></figcaption>
 </figure>
 
 ## 3 User Guide/Implementation
@@ -87,4 +88,9 @@ One of the main issues we dealt with near the beginning of the project was our d
 
 ## 5 Conclusion
 
-In summary, the goal for the idea of Travel Wiki has been accomplished. It allows users to search locations and find destinations that will create enjoyable experiences in that city. Although the vision of using the Google API to fully harness an expansive database wasn't fully realized due to constraints, we believe our vision was met and improvements can be made so the app could become even higher quality. 
+In summary, the goal for the idea of Travel Wiki has been accomplished. It allows users to search locations and find destinations that will create enjoyable experiences in that city. Although the vision of using the Google API to fully harness an expansive database wasn't fully realized due to constraints, we believe our vision was met and improvements can be made so the app could become even higher quality.
+
+## 6 Links
+
+Demo Video: <br />
+JIRA: https://cis350travelapp.atlassian.net/jira/software/projects/SCRUM/boards/1

@@ -85,11 +85,6 @@ class _LocationState extends State<Location> {
       body: Column(
         /* Adds location name to page based on user input*/
         children: [
-          // Padding(
-          //   padding: const EdgeInsets.all(10),
-          //   child: Text(widget.parameter), // Display the parameter value
-          // ),
-
           /* Lists the data from database to body */
           Expanded(
               flex: 3, // changes the size of the body
