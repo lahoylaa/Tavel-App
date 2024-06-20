@@ -4,7 +4,7 @@ import 'server.dart';
 import 'main.dart';
 
 /// ***************
-/// FIX: Need to add password verification before routing 
+/// FIX: Need to add password verification before routing
 /// FIX: Add storing of information to database
 ///****************
 
@@ -21,7 +21,7 @@ class _mySignupState extends State<Signup> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: Scaffold(
+        home: Scaffold(
       /* Appbar UI */
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
@@ -34,8 +34,8 @@ class _mySignupState extends State<Signup> {
         backgroundColor: Colors.blue,
         centerTitle: true,
         leading: Builder(
-            builder: (context) {
-              return IconButton(
+          builder: (context) {
+            return IconButton(
                 icon: const Icon(Icons.arrow_back),
                 onPressed: () {
                   Navigator.pushAndRemoveUntil(
@@ -47,10 +47,9 @@ class _mySignupState extends State<Signup> {
                     ),
                     (route) => false,
                   );
-                }
-              );
-            },
-          ),
+                });
+          },
+        ),
       ),
 
       /* Use function to center page */
@@ -85,7 +84,7 @@ class SignupForm extends StatelessWidget {
               fontWeight: FontWeight.bold,
             )),
 
-            /* Spacing */
+        /* Spacing */
         const SizedBox(height: 20),
 
         /* Prompt name */
@@ -177,38 +176,62 @@ class SignupForm extends StatelessWidget {
               textColor: Colors.white,
               child: const Text('Create an Account'),
               onPressed: () async {
-                /* Route page to Home() once information in database*/
-                if ((myPasswordController.text == myRePasswordController.text) && myEmailController.text.isNotEmpty) {
-                  await MongoDatabase.sendUserAuthentication(myNameController.text, myEmailController.text, myPasswordController.text);
-                  Navigator.pushAndRemoveUntil(
-                    context,
-                    MaterialPageRoute(
-                      builder: (BuildContext context) {
-                        return const Home();
-                      },
-                    ),
-                    (route) => false,
-                  );
-                }
-                else if (myEmailController.text.isEmpty) {
+                /* Filter through database */
+                final userAuthentication =
+                    await MongoDatabase.getUserAuthentication(
+                        myEmailController.text);
+
+                if (userAuthentication != null) {
+                  /* Route page to Home() once information in database*/
+                  if ((myPasswordController.text ==
+                          myRePasswordController.text) &&
+                      myEmailController.text.isNotEmpty) {
+                        
+                    await MongoDatabase.sendUserAuthentication(
+                        myNameController.text,
+                        myEmailController.text,
+                        myPasswordController.text);
+
+                    currentUserId = userAuthentication['_id'];
+                    Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(
+                        builder: (BuildContext context) {
+                          return const Home();
+                        },
+                      ),
+                      (route) => false,
+                    );
+                  } else if (myEmailController.text.isEmpty) {
+                    showDialog(
+                        context: context,
+                        builder: (context) {
+                          return const AlertDialog(
+                              content: Text(
+                            'Invalid email',
+                            textAlign: TextAlign.center,
+                          ));
+                        });
+                  } else {
+                    /* Output when passwords don't match */
+                    showDialog(
+                        context: context,
+                        builder: (context) {
+                          return const AlertDialog(
+                              content: Text(
+                            'Passwords do not match',
+                            textAlign: TextAlign.center,
+                          ));
+                        });
+                  }
+                } else {
+                  /* Error checking: email is already registered */
                   showDialog(
                       context: context,
                       builder: (context) {
                         return const AlertDialog(
                             content: Text(
-                          'Invalid email',
-                          textAlign: TextAlign.center,
-                        ));
-                      });
-                }
-                else{
-                  /* Output when passwords don't match */
-                  showDialog(
-                      context: context,
-                      builder: (context) {
-                        return const AlertDialog(
-                            content: Text(
-                          'Passwords do not match',
+                          'Email in use. Try a different email',
                           textAlign: TextAlign.center,
                         ));
                       });

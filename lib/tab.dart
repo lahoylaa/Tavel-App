@@ -56,9 +56,15 @@ class _myTabState extends State<PubDrawer>{
             selected: selectedIndex == 2,
             onTap: () {
               onItemTapped(2);
-              Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) {
-                return Account();
-              },),);
+              Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(
+                  builder: (BuildContext context) {
+                    return const Account();
+                  },
+                ),
+                (route) => false,
+              );
             }),
         ListTile(
             title: const Text('Sign Out'),
