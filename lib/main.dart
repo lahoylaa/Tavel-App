@@ -43,7 +43,7 @@ class _MyAppState extends State<MyApp> {
       home: Scaffold(
         /* Appbar UI  */
         appBar: AppBar(
-          title: const Text('Travel App',
+          title: const Text('Travel Wiki',
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 20.0,
@@ -55,9 +55,10 @@ class _MyAppState extends State<MyApp> {
         body: Container(
           /* Background Image */
           decoration: const BoxDecoration(
-              image: DecorationImage(
-            image: AssetImage("assets/travel.jpg"),
-            fit: BoxFit.cover,
+            image: DecorationImage(
+              image: AssetImage("assets/travel.jpg"),
+              opacity: 0.3,
+              fit: BoxFit.cover,
           )),
 
           /* Login UI */
@@ -188,7 +189,6 @@ class _MyAppState extends State<MyApp> {
                         },
                       ),
                     ),
-
                     /* Create an Account UI and Routing to Sign Up Page*/
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 35),

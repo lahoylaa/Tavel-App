@@ -13,7 +13,8 @@ class Saved extends StatefulWidget{
 class SavedState extends State<Saved>{
   @override
   Widget build(BuildContext context){
-    return const Scaffold(
+    return Scaffold(
+      appBar: AppBar(title: const Text('Saved screen'))
     );
   }
 }
