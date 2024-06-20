@@ -65,7 +65,7 @@ class _myTabState extends State<PubDrawer>{
                 ),
                 (route) => false,
               );
-            })
+            }),
         ListTile(
             title: const Text('Sign Out'),
             selected: selectedIndex == 3,
