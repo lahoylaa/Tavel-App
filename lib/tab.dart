@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'account.dart';
 
 class PubDrawer extends StatefulWidget{
   const PubDrawer({super.key});
@@ -46,6 +47,15 @@ class _myTabState extends State<PubDrawer>{
             selected: selectedIndex == 2,
             onTap: () {
               onItemTapped(2);
+                                            Navigator.pushAndRemoveUntil(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (BuildContext context) {
+                                    return const Account();
+                                  },
+                                ),
+                                (route) => false,
+                              );
             })
       ],
     ));
