@@ -4,6 +4,7 @@ import 'home.dart';
 import 'saved.dart';
 import 'account.dart';
 
+/* Creates the side menu for pages, can be easily called */
 class PubDrawer extends StatefulWidget{
   const PubDrawer({super.key});
 
@@ -22,7 +23,6 @@ class _myTabState extends State<PubDrawer>{
   @override
   Widget build(BuildContext context){
     /* Tab UI */
-    /* FIX: Not finished */
     return Drawer(
         child: ListView(
       padding: EdgeInsets.zero,
@@ -33,14 +33,21 @@ class _myTabState extends State<PubDrawer>{
           ),
           child: Text('Menu'),
         ),
+        /* Button for home */
         ListTile(
             title: const Text('Home'),
             selected: selectedIndex == 0,
             onTap: () {
               onItemTapped(0);
-              Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) {
-                return Home();
-              },),);
+              Navigator.pushAndRemoveUntil(
+                context, 
+                MaterialPageRoute(
+                  builder: (BuildContext context) {
+                    return const Home();
+                  },
+                ),
+                (route) => false,
+              );
             }),
         ListTile(
             title: const Text('Saved Locations'),
@@ -48,9 +55,10 @@ class _myTabState extends State<PubDrawer>{
             onTap: () {
               onItemTapped(1);
               Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) {
-                return Saved();
+                return const Saved();
               },),);
             }),
+        /* Button for Account Settings */
         ListTile(
             title: const Text('Account Settings'),
             selected: selectedIndex == 2,
@@ -66,6 +74,7 @@ class _myTabState extends State<PubDrawer>{
                 (route) => false,
               );
             }),
+        /* Button to Sign Out */
         ListTile(
             title: const Text('Sign Out'),
             selected: selectedIndex == 3,

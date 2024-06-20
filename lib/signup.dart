@@ -3,11 +3,6 @@ import 'home.dart';
 import 'server.dart';
 import 'main.dart';
 
-/// ***************
-/// FIX: Need to add password verification before routing
-/// FIX: Add storing of information to database
-///****************
-
 /* Class to create the sign up page of application */
 class Signup extends StatefulWidget {
   const Signup({super.key});
