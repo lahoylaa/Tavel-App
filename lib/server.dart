@@ -16,10 +16,9 @@ class MongoDatabase {
     await db.open();
     final collection = db.collection(captilizeFirstLetter(location));
     try {
-      // await db.open();
-    final userData = await collection.find().toList();
-    await db.close();
-    return userData;
+      final userData = await collection.find().toList();
+      await db.close();
+      return userData;
     } catch (e) {
       log(e.toString() + " Get LocationsError");
       return null;
@@ -34,15 +33,9 @@ class MongoDatabase {
     final db = await Db.create(database);
     await db.open();
     final collection = db.collection('Login');
-    // try{
-    //await db.open();
     final userData = await collection.findOne(where.eq('email', email));
     await db.close();
     return userData;
-    // }catch(e){
-    //     log(e.toString() + " Get User Authentication Error");
-    //     return null;
-    // }
   }
 
   /* Send user information to database */
@@ -69,28 +62,21 @@ class MongoDatabase {
     final db = await Db.create(database);
     await db.open();
     final collection = db.collection('Login');
-    //String temp = id != null ? userInfo['_id'].toString() : '';
     RegExp regExp = RegExp(r'[a-fA-F0-9]{24}');
     String userId = regExp.stringMatch(id) ?? '';
-    // try{
-    //await db.open();
     final currentId =
-        await collection.findOne(where.eq('_id', ObjectId.parse(userId)));
+      await collection.findOne(where.eq('_id', ObjectId.parse(userId)));
     await db.close();
     return currentId;
-    // }catch(e){
-    //     log(e.toString() + " Get User Authentication Error");
-    //     return null;
-    // }
   }
 
   /* Update user information on database */
   static Future<void> changeUserInfo(
-      String id, String newRecentIDValue, String newSaveIDValue) async {
+    String id, String newRecentIDValue, String newSaveIDValue) async {
     var db = await Db.create(database);
     await db.open();
     var coll = db.collection('Login');
-        RegExp regExp = RegExp(r'[a-fA-F0-9]{24}');
+    RegExp regExp = RegExp(r'[a-fA-F0-9]{24}');
     String userId = regExp.stringMatch(id) ?? '';
     var selector = where.eq('_id', ObjectId.parse(userId));
     var update1 = modify.set('recent_id', newRecentIDValue);
@@ -122,7 +108,7 @@ class MongoDatabase {
     var db = await Db.create(database);
     await db.open();
     var coll = db.collection('Login');
-            RegExp regExp = RegExp(r'[a-fA-F0-9]{24}');
+    RegExp regExp = RegExp(r'[a-fA-F0-9]{24}');
     String userId = regExp.stringMatch(id) ?? '';
     var selector = where.eq('_id', ObjectId.parse(userId));
     var update1 = modify.set('password', newPassword);
