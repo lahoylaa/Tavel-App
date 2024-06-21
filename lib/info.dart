@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:cis350_travel_app/main.dart';
 import 'server.dart';
 import 'tab.dart';
+import 'home.dart';
 import 'location.dart';
 
 class Info extends StatefulWidget {
@@ -17,12 +19,19 @@ class Info extends StatefulWidget {
 class InfoState extends State<Info> {
   /* Variable for retrieving documentation from database */
   List<Map<String, dynamic>> locations = [];
+  var user;
 
   /* Initialization of state based on data from database */
   @override
   void initState() {
     super.initState();
     outputLocation();
+    user = userID();
+  }
+
+  static Future<Map<String, dynamic>?> userID() async {
+    final currentUser = await MongoDatabase.getObjectId(currentUserId);
+    return currentUser;
   }
 
   /* Function to call database and set state */
@@ -64,6 +73,7 @@ class InfoState extends State<Info> {
                       );
             }
           ),
+          
           actions: <Widget>[
             Builder(
               builder: (context) => IconButton(
@@ -73,8 +83,15 @@ class InfoState extends State<Info> {
                 },
               ),
             ),
-              /* Back button implementation */
-          ],
+            Builder(
+              builder: (context) => IconButton(
+                icon: const Icon(Icons.menu),
+                onPressed: () {
+                  MongoDatabase.saveLocation(user, widget.parameter);
+              },
+            ),
+          ),
+         ],
         ),
         endDrawer: const PubDrawer(),
     

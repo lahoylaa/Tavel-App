@@ -5,8 +5,8 @@ import 'main.dart';
 /* Class to store databse functions */
 class MongoDatabase {
   /* Databse URI */
-  static String database =
-      'mongodb+srv://imbabyfat:CIS350_Travel_App@travelapp.kqkinpi.mongodb.net/TravelApp?retryWrites=true&w=majority';
+  static String database = 
+  'mongodb+srv://imbabyfat:CIS350_Travel_App@travelapp.kqkinpi.mongodb.net/TravelApp?retryWrites=true&w=majority';
 
 /* Retrieves the location information based on user input */
   static Future<List<Map<String, dynamic>>?> getLocation(
@@ -39,7 +39,7 @@ class MongoDatabase {
   }
 
   /* Send user information to database */
-  static Future<void> sendUserAuthentication(
+   static Future<void> sendUserAuthentication(
       String name, String email, String password) async {
     var db = await Db.create(database);
     await db.open();
@@ -50,11 +50,12 @@ class MongoDatabase {
       "password": password,
       "recent_id": "NULL",
       "save_id": "NULL",
+      "locations_id": ["NULL", "NULL", "NULL", "NULL"],
     });
     await db.close();
   }
 
-  /* Get user ObjectId */
+   /* Get user ObjectId */
   static Future<Map<String, dynamic>?> getObjectId(String id) async {
     // NOTE: Only works for Db.create() otherwise it shows MongoDB connection error
     // final db = Db(database);
@@ -85,7 +86,24 @@ class MongoDatabase {
     await db.close();
   }
 
-  /* Update user information on database */
+  static Future<void> saveLocation(String id, String location) async {
+    var db = await Db.create(database);
+    var update;
+    await db.open();
+    var coll = db.collection('Login');
+        RegExp regExp = RegExp(r'[a-fA-F0-9]{24}');
+    String userId = regExp.stringMatch(id) ?? '';
+    var selector = where.eq('_id', ObjectId.parse(userId));
+    for (var i = 0; i <= 3; i++){
+      if ('locations_id[i]' == "NULL"){
+        update = modify.set('locations_id[i]', location);
+      }
+    }
+    await coll.update(selector, update);
+    await db.close();
+  }
+
+ /* Update user information on database */
   static Future<void> updatePassword(String id, String newPassword) async {
     var db = await Db.create(database);
     await db.open();
