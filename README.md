@@ -31,31 +31,31 @@ The vision for Travel Wiki is to have full client-server architecture. Currently
 
 The diagram in Figure 1 defines the different functions of the app and its dependencies if it has any, such as the search function which depends on the database to function. The registration and login information of the user also has their own designated locations in the database that need to be called to either store new user data or recieve one to confirm login attempts.
 
-<figure align="center">
+<p align="center">
 <img src="https://i.ibb.co/mzSGdqd/Use-Case-Checkpoint1.png" alt="Use-Case-Checkpoint1"
 style="width:75%">
 <figcaption align = "center"><b>Fig.2 - Use Case Diagram</b></figcaption>
-</figure>
+</p>
 
 ### 3.2 Class Diagram
 
 Figure 2 displays the class diagram, and how each class interacts with one another. The most common state for the app is Home where most of the other classes can be accessed from.
 
-<figure align="center">
+<p align="center">
 <img src="https://i.ibb.co/WHtbqL4/Class-Diagram-Checkpoint1.png" alt="Class-Diagram-Checkpoint1"
 style="width:65%">
 <figcaption align = "center"><b>Fig.3 - Class Diagram</b></figcaption>
-</figure>
+</p>
 
 ### 3.3 Sequence & Communication Diagram
 
 Figure 3 shows the sequnce and communication diagrams for the app. It walks through the chronilogical order of the login/signup process, search process, initial home screen state, and how locations are saved to the user account.
 
-<figure align="center">
+<p align="center">
 <img src="https://i.ibb.co/X7PPF10/Sequence-Diagram-Checkpoint1.png" alt="Sequence-Diagram-Checkpoint1" style="width:45%">
 <img src="https://i.ibb.co/0jQz42y/Communication-Diagram.png"  width="700" />
 <figcaption align = "center"><b>Fig.4 - (a) Sequence Diagram (b) Communication Diagram</b></figcaption>
-</figure>
+</p>
 
 ## 4 User Guide/Implementation
 

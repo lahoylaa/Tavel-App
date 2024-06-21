@@ -39,7 +39,7 @@ void main() {
     // Build our app and trigger a frame.
     await tester.pumpWidget(const Home());
 
-    expect(find.text('Travel App'), findsOneWidget);
+    expect(find.text('Travel Wiki'), findsOneWidget);
 
     await tester.tap(find.byIcon(Icons.menu));
 
