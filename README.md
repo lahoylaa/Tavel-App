@@ -101,5 +101,5 @@ In summary, the goal for the idea of Travel Wiki has been accomplished. It allow
 
 ## 7 Links
 
-Demo Video: <br />
+Demo Video: https://youtu.be/2ySG6NPgZXE<br />
 JIRA: https://cis350travelapp.atlassian.net/jira/software/projects/SCRUM/boards/1
