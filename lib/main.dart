@@ -40,6 +40,7 @@ class _MyAppState extends State<MyApp> {
 
     /* Output of the class to the application */
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
         /* Appbar UI  */
         appBar: AppBar(
