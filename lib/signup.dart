@@ -176,7 +176,7 @@ class SignupForm extends StatelessWidget {
                     await MongoDatabase.getUserAuthentication(
                         myEmailController.text);
 
-                if (userAuthentication != null) {
+                if (userAuthentication == null) {
                   /* Route page to Home() once information in database*/
                   if ((myPasswordController.text ==
                           myRePasswordController.text) &&
@@ -187,7 +187,7 @@ class SignupForm extends StatelessWidget {
                         myEmailController.text,
                         myPasswordController.text);
 
-                    currentUserId = userAuthentication['_id'];
+                    currentUserId = userAuthentication != null ? userAuthentication['_id'].toString() : '';
                     Navigator.pushAndRemoveUntil(
                       context,
                       MaterialPageRoute(
