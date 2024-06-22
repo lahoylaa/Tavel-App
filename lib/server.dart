@@ -2,11 +2,13 @@ import 'dart:developer';
 import 'package:mongo_dart/mongo_dart.dart';
 import 'main.dart';
 
+
 /* Class to store databse functions */
 class MongoDatabase {
   /* Databse URI */
-  static String database = 
+  static String database =
   'mongodb+srv://imbabyfat:CIS350_Travel_App@travelapp.kqkinpi.mongodb.net/TravelApp?retryWrites=true&w=majority';
+
 
 /* Retrieves the location information based on user input */
   static Future<List<Map<String, dynamic>>?> getLocation(
@@ -16,14 +18,16 @@ class MongoDatabase {
     await db.open();
     final collection = db.collection(captilizeFirstLetter(location));
     try {
-      final userData = await collection.find().toList();
-      await db.close();
-      return userData;
+      // await db.open();
+    final userData = await collection.find().toList();
+    await db.close();
+    return userData;
     } catch (e) {
       log(e.toString() + " Get LocationsError");
       return null;
     }
   }
+
 
   /* Retreive user information from database */
   static Future<Map<String, dynamic>?> getUserAuthentication(
@@ -33,10 +37,17 @@ class MongoDatabase {
     final db = await Db.create(database);
     await db.open();
     final collection = db.collection('Login');
+    // try{
+    //await db.open();
     final userData = await collection.findOne(where.eq('email', email));
     await db.close();
     return userData;
+    // }catch(e){
+    //     log(e.toString() + " Get User Authentication Error");
+    //     return null;
+    // }
   }
+
 
   /* Send user information to database */
    static Future<void> sendUserAuthentication(
@@ -50,10 +61,11 @@ class MongoDatabase {
       "password": password,
       "recent_id": "NULL",
       "save_id": "NULL",
-      "locations_id": ["NULL", "NULL", "NULL", "NULL"],
+      "locations_id": '',
     });
     await db.close();
   }
+
 
    /* Get user ObjectId */
   static Future<Map<String, dynamic>?> getObjectId(String id) async {
@@ -62,21 +74,29 @@ class MongoDatabase {
     final db = await Db.create(database);
     await db.open();
     final collection = db.collection('Login');
+    //String temp = id != null ? userInfo['_id'].toString() : '';
     RegExp regExp = RegExp(r'[a-fA-F0-9]{24}');
     String userId = regExp.stringMatch(id) ?? '';
+    // try{
+    //await db.open();
     final currentId =
-      await collection.findOne(where.eq('_id', ObjectId.parse(userId)));
+        await collection.findOne(where.eq('_id', ObjectId.parse(userId)));
     await db.close();
     return currentId;
+    // }catch(e){
+    //     log(e.toString() + " Get User Authentication Error");
+    //     return null;
+    // }
   }
+
 
   /* Update user information on database */
   static Future<void> changeUserInfo(
-    String id, String newRecentIDValue, String newSaveIDValue) async {
+      String id, String newRecentIDValue, String newSaveIDValue) async {
     var db = await Db.create(database);
     await db.open();
     var coll = db.collection('Login');
-    RegExp regExp = RegExp(r'[a-fA-F0-9]{24}');
+        RegExp regExp = RegExp(r'[a-fA-F0-9]{24}');
     String userId = regExp.stringMatch(id) ?? '';
     var selector = where.eq('_id', ObjectId.parse(userId));
     var update1 = modify.set('recent_id', newRecentIDValue);
@@ -86,29 +106,26 @@ class MongoDatabase {
     await db.close();
   }
 
+
   static Future<void> saveLocation(String id, String location) async {
     var db = await Db.create(database);
-    var update;
     await db.open();
     var coll = db.collection('Login');
         RegExp regExp = RegExp(r'[a-fA-F0-9]{24}');
     String userId = regExp.stringMatch(id) ?? '';
     var selector = where.eq('_id', ObjectId.parse(userId));
-    for (var i = 0; i <= 3; i++){
-      if ('locations_id[i]' == "NULL"){
-        update = modify.set('locations_id[i]', location);
-      }
-    }
+    var update = modify.set('locations_id', location);
     await coll.update(selector, update);
     await db.close();
   }
+
 
  /* Update user information on database */
   static Future<void> updatePassword(String id, String newPassword) async {
     var db = await Db.create(database);
     await db.open();
     var coll = db.collection('Login');
-    RegExp regExp = RegExp(r'[a-fA-F0-9]{24}');
+            RegExp regExp = RegExp(r'[a-fA-F0-9]{24}');
     String userId = regExp.stringMatch(id) ?? '';
     var selector = where.eq('_id', ObjectId.parse(userId));
     var update1 = modify.set('password', newPassword);
@@ -117,8 +134,13 @@ class MongoDatabase {
   }
 }
 
+
 /* To use in getLocation() */
 String captilizeFirstLetter(String input) {
   if (input.isEmpty) return input;
   return input[0].toUpperCase() + input.substring(1);
 }
+
+
+
+

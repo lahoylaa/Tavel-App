@@ -5,46 +5,55 @@ import 'info.dart';
 import 'tab.dart';
 import 'home.dart';
 
-// void main() async {
-//   runApp(const MaterialApp(
-//     title: 'Navigation Basics',
-//     home: Saved(),
-//   ));
-// }
-
 class Saved extends StatefulWidget{
   const Saved({super.key});
+
 
   @override
   SavedState createState() => SavedState();
 }
 
+
 class SavedState extends State<Saved>{
-  List<Map<String, dynamic>> sLocations = [];
+  String sLocations = '';
+  String userName = '';
+  String userEmail = '';
+  String userId = '';
+  String userPassword = '';
+  String currentEmail = '';
+
 
   @override
   void initState() {
     super.initState();
-    loadUserID();
+    loadUserInformation();
   }
-
- Future<void> loadUserID() async {
-  List<Map<String, dynamic>> savedLocations = [];
+ 
+  Future<void> loadUserInformation() async {
     try {
+
+
       final currentUser = await MongoDatabase.getObjectId(currentUserId);
       if(currentUser != null){
-        savedLocations = currentUser['locations_id'];
+        currentEmail = currentUser['email'];
       }else{
         print('Error: Current User Info Was Not Received');
+        return;
       }
+      // Fetch user information from MongoDB
+      final userInfo = await MongoDatabase.getUserAuthentication(currentEmail);
+     
+      setState(() {
+        // Update state variables with fetched data
+        userName = userInfo != null ? userInfo['locations_id'] : '';
+      });
     } catch (e) {
       print('Error loading user information: $e');
       // Handle error gracefully, e.g., show a snackbar or alert dialog
     }
-    setState(() {
-      sLocations = savedLocations;
-    });
   }
+
+
   @override
   Widget build(BuildContext context){
     return Scaffold(
@@ -72,70 +81,34 @@ class SavedState extends State<Saved>{
           );
         },
       ),
-      actions: <Widget>[
-        Builder(
-          builder: (context) => IconButton(
-            icon: const Icon(Icons.menu),
-            onPressed: () {
-              Scaffold.of(context).openEndDrawer();
-            },
+     
+          actions: <Widget>[
+            Builder(
+              builder: (context) => IconButton(
+                icon: const Icon(Icons.menu),
+                onPressed: () {
+                  Scaffold.of(context).openEndDrawer();
+                },
+              ),
+            ),
+           
+         ],
+        ),
+    endDrawer: const PubDrawer(),
+ 
+    body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const SizedBox(height: 20),
+              ListTile(
+                title: Text('Location: $userName'),
+              ),
+            ],
           ),
         ),
-      ],
-    ),
-    endDrawer: const PubDrawer(),
-    body: Column(
-        /* Adds location name to page based on user input*/
-        children: [
-          Expanded(
-              flex: 6,
-              child: Center(
-                  child: ListView.builder(
-                      physics: const NeverScrollableScrollPhysics(),
-                      itemCount: sLocations.length,
-                      itemBuilder: (context, index) {
-                        var location = sLocations[index];
-                        ListTile(
-                          title: Text(
-                             '${index + 1}. ' + location['location'],
-                          ),
-                        );
-                        // return MaterialButton(
-                        //     minWidth: 10.0,
-                        //     // Testing for boundaries of the button
-                        //     //color: Colors.red,
-                        //     onPressed: () {
-                        //       Navigator.pushAndRemoveUntil(
-                        //         context,
-                        //         MaterialPageRoute(
-                        //           builder: (BuildContext context) {
-                        //             return Info(
-                        //                 parameter: widget.parameter,
-                        //                 city: index);
-                        //           },
-                        //           //return const Home();
-                        //         ),
-                        //         (route) => false,
-                        //       );
-                        //     },
-                        //     child: Container(
-                        //         margin: EdgeInsets.symmetric(
-                        //             vertical: 5.0, horizontal: 5.0),
-                        //         padding: EdgeInsets.all(5.0),
-                        //         decoration: BoxDecoration(
-                        //           border: Border.all(
-                        //             color: Colors.blue,
-                        //             width: 2.0,
-                        //           ),
-                        //           borderRadius: BorderRadius.circular(10.0),
-                        //         ),
-                        //         child: ListTile(
-                        //           title: Text(
-                        //           '${index + 1}. ' + location['location'],
-                        //           ),
-                        //         )));
-                      }))),
-        ],
       ),
     );
   }
