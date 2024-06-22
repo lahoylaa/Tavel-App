@@ -91,6 +91,19 @@ When a user enters a location, the page generates with a picture of the location
   <figcaption align = "center"><b>Fig.7 - (a) Location Page (b) City Page</b></figcaption>
 </p>
 
+#### 4.1.4 Save Locations Page
+
+When a user wants to save the name of a location after viewing its attributes, a "thumbs-up" icon at the top of the screen can be pressed to store this data in the user's account. This saved location can then be viewed from the saved page accessed with the tab side bar. This page utilizes a back button and a tab bar for re-routing. This feature was not yet finished at the time of the demo recording and with more time a better appearance and overall functionality would be achieved.
+
+<p align="center">
+
+  <img src="https://github.com/lahoylaa/Tavel-App/assets/144182821/eb836713-13a2-47cb-960b-689af42b61fc" width="400" />
+
+  <img src="https://github.com/lahoylaa/Tavel-App/assets/144182821/e9be1b28-daf9-4a1d-b533-a32d2b2ff16b" width="400" />
+
+  <figcaption align = "center"><b>Fig.8 - (a) Thumbs-up Icon (b) Saved Page</b></figcaption>
+</p>
+
 ## 5 Risk Analysis and Retrospective
 
 One of the main issues we dealt with near the beginning of the project was our decision to use the Google Locations API to obtain more data for location searches. Soon after we realized the cost of time and money to implement the function would simply not be worth it, so we decided to scrap the idea and instead work with a database that instead had a few manual entries in order to test the app effectively and confirm it was operational. One risk we took that paid off was our decision to make the app account based. Users are able to login and save locations under their own account, which is a feature we're very proud of. Given more time, we believe the API could have been implemented successfully with the program we have now, in addition to being able to make the UI appear more fitting as in it's current state some pages appear bland.
