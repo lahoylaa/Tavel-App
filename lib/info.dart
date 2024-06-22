@@ -1,22 +1,37 @@
 import 'package:flutter/material.dart';
+import 'package:cis350_travel_app/main.dart';
 import 'server.dart';
 import 'tab.dart';
+import 'home.dart';
 import 'location.dart';
+
 
 class Info extends StatefulWidget {
   final String parameter;
   final int city;
 
+
   /* Use this to add a parameter to the page routing */
   const Info({super.key, required this.parameter, required this.city});
+
 
   @override
   InfoState createState() => InfoState();
 }
 
+
 class InfoState extends State<Info> {
   /* Variable for retrieving documentation from database */
   List<Map<String, dynamic>> locations = [];
+  String user = '';
+  String numUser = '';
+  String currentEmail = '';
+  String userName = '';
+  String userEmail = '';
+  String userId = '';
+  String userPassword = '';
+  String place = '';
+
 
   /* Initialization of state based on data from database */
   @override
@@ -25,13 +40,16 @@ class InfoState extends State<Info> {
     outputLocation();
   }
 
+
   /* Function to call database and set state */
   Future<void> outputLocation() async {
     final locationData = await MongoDatabase.getLocation(widget.parameter);
     setState(() {
       locations = locationData!;
+      place = locations[widget.city]['location'];
     });
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -64,7 +82,27 @@ class InfoState extends State<Info> {
                       );
             }
           ),
+         
           actions: <Widget>[
+            Builder(
+              builder: (context) => IconButton(
+                icon: const Icon(Icons.thumb_up),
+                onPressed: () {
+                  MongoDatabase.saveLocation(currentUserId, locations[widget.city]['location']);
+                  showDialog(
+                      context: context,
+                      builder: (context) {
+                        return const AlertDialog(
+                          content: Text(
+                            'Location Saved',
+                            textAlign: TextAlign.center,
+                          ),
+                        );
+                      },
+                    );
+              },
+            ),
+          ),
             Builder(
               builder: (context) => IconButton(
                 icon: const Icon(Icons.menu),
@@ -73,11 +111,11 @@ class InfoState extends State<Info> {
                 },
               ),
             ),
-              /* Back button implementation */
-          ],
+           
+         ],
         ),
         endDrawer: const PubDrawer(),
-    
+   
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
@@ -217,6 +255,7 @@ class InfoState extends State<Info> {
                   ),
                 ),
 
+
                 // Second bottom column (Attractions)
                 Expanded(
                   flex: 1,
@@ -279,3 +318,5 @@ class InfoState extends State<Info> {
     );
   }
 }
+
+

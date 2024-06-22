@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'server.dart';
 import 'info.dart';
 import 'tab.dart';
-import 'Home.dart';
+import 'home.dart';
 
 /* Class to create location page of application */
 class Location extends StatefulWidget {
@@ -44,7 +44,7 @@ class _LocationState extends State<Location> {
       drawer: const PubDrawer(),
       /* Appbar UI */
       appBar: AppBar(
-        title: const Text('Travel App',
+        title: const Text('Travel Wiki',
             style: TextStyle(
               color: Colors.white,
               fontSize: 20.0,
@@ -84,11 +84,6 @@ class _LocationState extends State<Location> {
       body: Column(
         /* Adds location name to page based on user input*/
         children: [
-          // Padding(
-          //   padding: const EdgeInsets.all(10),
-          //   child: Text(widget.parameter), // Display the parameter value
-          // ),
-
           /* Lists the data from database to body */
           Expanded(
               flex: 3, // changes the size of the body

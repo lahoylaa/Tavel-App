@@ -39,11 +39,11 @@ void main() {
     // Build our app and trigger a frame.
     await tester.pumpWidget(const Home());
 
-    expect(find.text('Travel App'), findsOneWidget);
+    expect(find.text('Travel Wiki'), findsOneWidget);
 
     await tester.tap(find.byIcon(Icons.menu));
 
-    await tester.pump();  //use pumAndSettle if not working
+    await tester.pump();  //use pumpAndSettle if not working
 
     expect(find.text('Saved Locations'), findsOneWidget);
   });
@@ -58,8 +58,25 @@ void main() {
 
     await tester.tap(find.byIcon(Icons.arrow_back));
 
-    await tester.pumpAndSettle();  //use pumAndSettle if not working
+    await tester.pumpAndSettle();
 
     expect(find.text('Login'), findsWidgets);
+  });
+
+  testWidgets('Account settings page test', (WidgetTester tester) async {
+    // Build our app and trigger a frame.
+    await tester.pumpWidget(const Home());
+
+    await tester.tap(find.byIcon(Icons.menu));
+
+    await tester.pumpAndSettle();  //use pumpAndSettle if not working
+
+    expect(find.text('Account Settings'), findsOneWidget);
+    final accountSettingsButton = find.text('Account Settings');
+    await tester.tap(accountSettingsButton);
+
+    await tester.pumpAndSettle();
+
+    expect(find.text('User Information'), findsOneWidget);
   });
 }
