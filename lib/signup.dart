@@ -16,11 +16,12 @@ class _mySignupState extends State<Signup> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        home: Scaffold(
+      debugShowCheckedModeBanner: false,
+      home: Scaffold(
       /* Appbar UI */
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        title: const Text('Travel App',
+        title: const Text('Travel Wiki',
             style: TextStyle(
               color: Colors.white,
               fontSize: 20.0,

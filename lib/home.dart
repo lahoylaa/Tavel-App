@@ -14,25 +14,6 @@ class Home extends StatefulWidget {
 /* Subclas to create functionality of  the home page */
 class _myHomeState extends State<Home> {
 
-  /* Variables for tab bar */
-  /* 
-  static const TextStyle optionStyle = TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
-  static const List<Widget> widgetOptions = <Widget>[
-    Text(
-      'Index 0: Home',
-      style: optionStyle,
-    ),
-    Text(
-      'Index 1: Business',
-      style: optionStyle,
-    ),
-    Text(
-      'Index 2: School',
-      style: optionStyle,
-    ),
-  ];
-  */
-
   @override
   Widget build(BuildContext context) {
     /* Variable for search bar user input*/
@@ -40,12 +21,13 @@ class _myHomeState extends State<Home> {
 
     /* Output of the class to the application */
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
         /*defines drawer from tab.dart*/
         drawer: const PubDrawer(),
         /* Appbar UI */
         appBar: AppBar(
-          title: const Text('Travel App',
+          title: const Text('Travel Wiki',
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 20.0,

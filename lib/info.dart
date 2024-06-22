@@ -77,20 +77,21 @@ class InfoState extends State<Info> {
           actions: <Widget>[
             Builder(
               builder: (context) => IconButton(
+                icon: const Icon(Icons.star),
+                onPressed: () {
+                  MongoDatabase.saveLocation(user, widget.parameter);
+              },
+            ),
+          ),
+            Builder(
+              builder: (context) => IconButton(
                 icon: const Icon(Icons.menu),
                 onPressed: () {
                   Scaffold.of(context).openEndDrawer();
                 },
               ),
             ),
-            Builder(
-              builder: (context) => IconButton(
-                icon: const Icon(Icons.menu),
-                onPressed: () {
-                  MongoDatabase.saveLocation(user, widget.parameter);
-              },
-            ),
-          ),
+            
          ],
         ),
         endDrawer: const PubDrawer(),

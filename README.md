@@ -31,31 +31,31 @@ The vision for Travel Wiki is to have full client-server architecture. Currently
 
 The diagram in Figure 1 defines the different functions of the app and its dependencies if it has any, such as the search function which depends on the database to function. The registration and login information of the user also has their own designated locations in the database that need to be called to either store new user data or recieve one to confirm login attempts.
 
-<figure align="center">
+<p align="center">
 <img src="https://i.ibb.co/mzSGdqd/Use-Case-Checkpoint1.png" alt="Use-Case-Checkpoint1"
 style="width:75%">
 <figcaption align = "center"><b>Fig.2 - Use Case Diagram</b></figcaption>
-</figure>
+</p>
 
 ### 3.2 Class Diagram
 
 Figure 2 displays the class diagram, and how each class interacts with one another. The most common state for the app is Home where most of the other classes can be accessed from.
 
-<figure align="center">
+<p align="center">
 <img src="https://i.ibb.co/WHtbqL4/Class-Diagram-Checkpoint1.png" alt="Class-Diagram-Checkpoint1"
 style="width:65%">
 <figcaption align = "center"><b>Fig.3 - Class Diagram</b></figcaption>
-</figure>
+</p>
 
 ### 3.3 Sequence & Communication Diagram
 
 Figure 3 shows the sequnce and communication diagrams for the app. It walks through the chronilogical order of the login/signup process, search process, initial home screen state, and how locations are saved to the user account.
 
-<figure align="center">
+<p align="center">
 <img src="https://i.ibb.co/X7PPF10/Sequence-Diagram-Checkpoint1.png" alt="Sequence-Diagram-Checkpoint1" style="width:45%">
 <img src="https://i.ibb.co/0jQz42y/Communication-Diagram.png"  width="700" />
 <figcaption align = "center"><b>Fig.4 - (a) Sequence Diagram (b) Communication Diagram</b></figcaption>
-</figure>
+</p>
 
 ## 4 User Guide/Implementation
 
@@ -91,6 +91,19 @@ When a user enters a location, the page generates with a picture of the location
   <figcaption align = "center"><b>Fig.7 - (a) Location Page (b) City Page</b></figcaption>
 </p>
 
+#### 4.1.4 Save Locations Page
+
+When a user wants to save the name of a location after viewing its attributes, a "thumbs-up" icon at the top of the screen can be pressed to store this data in the user's account. This saved location can then be viewed from the saved page accessed with the tab side bar. This page utilizes a back button and a tab bar for re-routing. This feature was not yet finished at the time of the demo recording and with more time a better appearance and overall functionality would be achieved.
+
+<p align="center">
+
+  <img src="https://github.com/lahoylaa/Tavel-App/assets/144182821/eb836713-13a2-47cb-960b-689af42b61fc" width="400" />
+
+  <img src="https://github.com/lahoylaa/Tavel-App/assets/144182821/e9be1b28-daf9-4a1d-b533-a32d2b2ff16b" width="400" />
+
+  <figcaption align = "center"><b>Fig.8 - (a) Thumbs-up Icon (b) Saved Page</b></figcaption>
+</p>
+
 ## 5 Risk Analysis and Retrospective
 
 One of the main issues we dealt with near the beginning of the project was our decision to use the Google Locations API to obtain more data for location searches. Soon after we realized the cost of time and money to implement the function would simply not be worth it, so we decided to scrap the idea and instead work with a database that instead had a few manual entries in order to test the app effectively and confirm it was operational. One risk we took that paid off was our decision to make the app account based. Users are able to login and save locations under their own account, which is a feature we're very proud of. Given more time, we believe the API could have been implemented successfully with the program we have now, in addition to being able to make the UI appear more fitting as in it's current state some pages appear bland.
@@ -101,5 +114,5 @@ In summary, the goal for the idea of Travel Wiki has been accomplished. It allow
 
 ## 7 Links
 
-Demo Video: <br />
+Demo Video: https://youtu.be/2ySG6NPgZXE<br />
 JIRA: https://cis350travelapp.atlassian.net/jira/software/projects/SCRUM/boards/1

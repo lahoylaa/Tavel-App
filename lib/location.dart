@@ -44,7 +44,7 @@ class _LocationState extends State<Location> {
       drawer: const PubDrawer(),
       /* Appbar UI */
       appBar: AppBar(
-        title: const Text('Travel App',
+        title: const Text('Travel Wiki',
             style: TextStyle(
               color: Colors.white,
               fontSize: 20.0,
